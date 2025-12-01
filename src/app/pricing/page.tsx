@@ -53,7 +53,7 @@ export default function PricingPage() {
       <Benefits />
       <Process />
       <Testimonials />
-      <Pricing />
+      <Pricing variant="compare" />
     </>
   );
 }

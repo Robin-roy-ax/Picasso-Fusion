@@ -103,9 +103,9 @@ export default function PricingSection({ variant = "default" }: PricingSectionPr
       >
         {loading ? (
           <>
-            <PricingCardSkeleton />
-            <PricingCardSkeleton />
-            <PricingCardSkeleton />
+            <PricingCardSkeleton highlight={false} />
+            <PricingCardSkeleton highlight={true} />
+            <PricingCardSkeleton highlight={false} />
           </>
         ) : pricingPlans.length === 0 ? (
           <div className="col-span-full text-center py-12">
