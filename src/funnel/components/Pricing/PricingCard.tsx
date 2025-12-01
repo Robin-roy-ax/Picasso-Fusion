@@ -158,12 +158,12 @@ export default function PricingCard({
                   <div className="space-y-3 pt-4">
                     {Object.entries(subFeatures).map(([category, categoryFeatures]) => (
                       <div key={category}>
-                        <h4 className={`text-xs font-bold mb-2 uppercase tracking-wide ${
+                        <h4 className={`text-md font-bold mb-2 uppercase tracking-wide ${
                           highlight ? "text-gray-300" : "text-gray-600"
                         }`}>
                           {category}
                         </h4>
-                        <ul className="grid grid-cols-1 gap-1.5 text-xs sm:text-sm">
+                        <ul className="grid grid-cols-1 gap-1.5 text-sm sm:text-md">
                           {Object.entries(categoryFeatures).map(([featureName, featureValue]) => {
                             const isEnabled = featureValue === true || (typeof featureValue === 'string' && featureValue.toLowerCase().includes('up to'));
                             const displayValue = typeof featureValue === 'string' ? featureValue : featureName;
@@ -174,7 +174,7 @@ export default function PricingCard({
                               }`}>
                                 {isEnabled ? (
                                   <Check className={`w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0 ${
-                                    highlight ? "text-green-400" : "text-green-600"
+                                    highlight ? "text-gray-500" : "text-gray-700"
                                   }`} />
                                 ) : (
                                   <X className={`w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0 ${
