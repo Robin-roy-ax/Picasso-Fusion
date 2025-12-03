@@ -29,6 +29,18 @@
   --token-603511f4-daed-4461-b963-0d12ecb0fd1b: #f5f6fa;
   --token-f1f69427-55f1-4736-9f04-12e29d72c9db: #ccd5e899;
   --token-d649b08b-b393-4dfd-9d66-edb3ef4af5ce: #dde3ee;
+
+  /* Custom colors from Work module */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-blue: #1d52e5;
+  --color-primary: #28334d;
+  --color-muted: #8592b1;
+  --color-primary-transparent: #28334d99;
+  --color-dark: #111a3b;
+  --color-light-bg: #f5f6fa;
+  --color-border: #dde3ee;
+  --color-overlay: #ccd5e899;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,8 +50,10 @@
   }
 }
 
-html, body {
+html,
+body {
   scroll-behavior: smooth !important;
+  overscroll-behavior-y: none;
 }
 
 body {

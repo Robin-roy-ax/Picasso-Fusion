@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import PricingCard from "./PricingCard";
 import PricingCardSkeleton from "./PricingCardSkeleton";
 import { fetchPricingPlans, PricingPlan } from "./data";
@@ -36,13 +36,13 @@ export default function PricingSection({ variant = "default" }: PricingSectionPr
     })();
   }, []);
 
-  const handleToggleExpand = (index: number) => {
+  const handleToggleExpand = useCallback((index: number) => {
     setExpandedCards(prev => 
       prev.includes(index) 
-        ? prev.filter(i => i !== index) // Close if already open
-        : [...prev, index] // Add to open cards without closing others
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
     );
-  };
+  }, []);
 
   const headerTitle =
     variant === "compare" ? "Compare & Choose Your Plan" : "Transparent Pricing";

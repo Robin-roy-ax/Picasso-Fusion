@@ -6,6 +6,8 @@ import { CursorProvider } from "@/funnel/components/common/CursorContext";
 import Navbar from "@/funnel/components/Navbar/index";
 import Footer from "@/funnel/components/Footer/index";
 import FaqPage from "@/funnel/components/FaqPage";
+import GradualBlur from "@/funnel/components/common/GradualBlur";
+import ScrollRestoration from "@/funnel/components/common/ScrollRestoration";
 
 const interSans = Inter({
   variable: "--font-inter-sans",
@@ -101,12 +103,14 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${interSans.variable} ${instrumentSerif.variable} font-sans antialiased`}>
+        <ScrollRestoration />
         <CursorProvider>
           <CustomCursor />
           <Navbar />
           {children}
           <FaqPage/>
           <Footer />
+          <GradualBlur position="bottom" height="100px" zIndex={999} fixed />
         </CursorProvider>
         <script
           type="application/ld+json"

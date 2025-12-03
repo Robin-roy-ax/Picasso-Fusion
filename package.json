@@ -10,11 +10,15 @@
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
+    "@sanity/image-url": "^2.0.1",
+    "@sanity/vision": "^4.19.0",
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.545.0",
     "next": "15.5.2",
+    "next-sanity": "^11.6.10",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "sanity": "^4.19.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

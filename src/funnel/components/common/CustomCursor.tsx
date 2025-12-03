@@ -1,8 +1,9 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useCursor } from "@/funnel/components/common/CursorContext";
+import { rafThrottle } from "@/utils/performance";
 
 const CustomCursor = () => {
   const { isCustomCursorActive } = useCursor();
@@ -14,11 +15,12 @@ const CustomCursor = () => {
   const smoothY = useSpring(mouseY, { stiffness: 300, damping: 20 });
 
   useEffect(() => {
-    const moveCursor = (e: MouseEvent) => {
+    const moveCursor = rafThrottle((e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-    };
-    window.addEventListener("mousemove", moveCursor);
+    });
+    
+    window.addEventListener("mousemove", moveCursor, { passive: true });
     return () => window.removeEventListener("mousemove", moveCursor);
   }, [mouseX, mouseY]);
 

@@ -2,13 +2,16 @@
 
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import {
   TESTIMONIALS_DATA,
   TESTIMONIALS_TEXT,
-  TESTIMONIALS_ANIMATIONS
+  TESTIMONIALS_ANIMATIONS,
+  Testimonial
 } from "./data";
 import styles from "./style.module.css";
-import { useHashNavigation } from "@/hooks/useHashNavigation";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 const cardVariants: Variants = {
   hidden: { 
@@ -27,11 +30,42 @@ const cardVariants: Variants = {
 };
 
 export default function Testimonials() {
-  const isHashNav = useHashNavigation("testimonials");
-  const sectionClass = isHashNav ? `${styles.testimonialsSection} ${styles.testimonialsHashNav}` : styles.testimonialsSection;
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(TESTIMONIALS_DATA);
+  const [isFetching, setIsFetching] = useState(false);
+
+  const fetchTestimonials = useCallback(async () => {
+    if (isFetching) return; // Prevent duplicate fetches
+    
+    setIsFetching(true);
+    const query = `*[_type == "testimonial"]{
+      quote,
+      name,
+      title,
+      image
+    }`;
+    try {
+      const data = await client.fetch(query);
+      if (data && data.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const mappedData = data.map((item: any) => ({
+          ...item,
+          image: item.image ? urlFor(item.image).url() : "",
+        }));
+        setTestimonials(mappedData);
+      }
+    } catch (error) {
+      console.error("Failed to fetch testimonials:", error);
+    } finally {
+      setIsFetching(false);
+    }
+  }, [isFetching]);
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, [fetchTestimonials]);
 
   return (
-    <section id="testimonials" className={sectionClass}>
+    <section id="testimonials" className={styles.testimonialsSection}>
       <div className={styles.testimonialsContainer}>
         <motion.div
           initial={TESTIMONIALS_ANIMATIONS.header.initial}
@@ -61,7 +95,7 @@ export default function Testimonials() {
         </motion.div>
 
         <div className={styles.testimonialsGrid}>
-          {TESTIMONIALS_DATA.map((testimonial, index) => {
+          {testimonials.map((testimonial, index) => {
             const column = index % 3;
             let delay = 0;
 
@@ -78,19 +112,22 @@ export default function Testimonials() {
                 viewport={{ once: true }}
                 custom={delay}
               >
+                <div className={styles.overlay} />
                 <p className={styles.testimonialQuote}>
                   {`"${testimonial.quote}"`}
                 </p>
 
                 <div className={styles.testimonialFooter}>
                   <div className={styles.testimonialImageContainer}>
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      fill
-                      className={styles.testimonialImage}
-                      sizes="56px"
-                    />
+                    {testimonial.image && (
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        fill
+                        className={styles.testimonialImage}
+                        sizes="56px"
+                      />
+                    )}
                   </div>
                   <div className={styles.testimonialInfo}>
                     <p className={styles.testimonialName}>

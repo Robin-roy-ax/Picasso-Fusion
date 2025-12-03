@@ -151,7 +151,8 @@
 
 .testimonialCard {
   position: relative;
-  background-color: var(--token-603511f4-daed-4461-b963-0d12ecb0fd1b, rgb(245, 246, 250));
+  /* background-color: var(--token-603511f4-daed-4461-b963-0d12ecb0fd1b, rgb(245, 246, 250)); */
+  background: radial-gradient(100% 75% at 0% 0%, #94a1b5 0%, var(--token-603511f4-daed-4461-b963-0d12ecb0fd1b, #f5f6fa) 100%);
   border-radius: 20px;
   padding: 1.25rem;
   border: 1px solid rgb(229, 231, 235);
@@ -161,7 +162,7 @@
   width: 100%;
   max-width: 27rem;
   margin: 0 auto;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.7s ease;
   box-shadow: rgba(221, 227, 238, 0.74) 0px 0.78363px 0.78363px -0.535714px,
     rgba(221, 227, 238, 0.725) 0px 1.91965px 1.91965px -1.07143px,
     rgba(221, 227, 238, 0.706) 0px 3.63745px 3.63745px -1.60714px,
@@ -169,6 +170,7 @@
     rgba(221, 227, 238, 0.61) 0px 11.0519px 11.0519px -2.67857px,
     rgba(221, 227, 238, 0.498) 0px 20.2428px 20.2428px -3.21429px,
     rgba(221, 227, 238, 0.25) 0px 40px 40px -3.75px;
+  overflow: hidden;
 }
 
 @media (min-width: 480px) {
@@ -190,10 +192,25 @@
   border-radius: 20px;
   box-shadow: inset 0 2px 4px rgba(209, 213, 219, 0.4);
   pointer-events: none;
+  z-index: 2;
 }
 
 .testimonialCard:hover {
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top right, rgba(37, 99, 235, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.testimonialCard:hover .overlay {
+  opacity: 1;
 }
 
 .testimonialQuote {

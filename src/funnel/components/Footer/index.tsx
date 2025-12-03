@@ -3,11 +3,14 @@
 import { motion } from "framer-motion";
 import { menuLinks, socialLinks } from "./data";
 import styles from "./style.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import Link from "next/link";
 
 export default function HomeSection() {
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
       (async function () {
@@ -18,6 +21,46 @@ export default function HomeSection() {
         });
       })();
     }, []);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email) {
+      setMessage("Please enter a valid email");
+      return;
+    }
+
+    setIsLoading(true);
+    setMessage("");
+
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          name: email.split("@")[0],
+          list_uuids: ["df21996e-9d98-48a2-b766-c2b9c4dc7e8b"],
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage("Successfully subscribed! Please check your email to confirm.");
+        setEmail("");
+      } else {
+        setMessage(data.message || "Subscription failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Subscription error:", error);
+      setMessage("An error occurred. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <main className={styles.main}>
@@ -64,16 +107,30 @@ export default function HomeSection() {
               Subscribe to our newsletter
             </h3>
 
-            <div className="flex items-center gap-3 w-full max-w-md mt-4">
-              <input
-                type="email"
-                placeholder="name@email.com"
-                className="bg-[#f5f6fa] text-[#28334d] px-5 py-3 rounded-full w-full outline-none focus:ring-2 focus:ring-[#dde3ee] placeholder-[#8592b1] text-base transition-all duration-200"
-              />
-              <button className="bg-[#000000] text-white px-6 py-3 rounded-full text-base font-medium transition-all duration-200">
-                Subscribe
-              </button>
-            </div>
+            <form onSubmit={handleSubscribe} className="w-full max-w-md mt-4">
+              <div className="flex items-center gap-3 w-full">
+                <input
+                  type="email"
+                  placeholder="name@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={isLoading}
+                  className="bg-[#f5f6fa] text-[#28334d] px-5 py-3 rounded-full w-full outline-none focus:ring-2 focus:ring-[#dde3ee] placeholder-[#8592b1] text-base transition-all duration-200 disabled:opacity-50"
+                />
+                <button 
+                  type="submit"
+                  disabled={isLoading}
+                  className="bg-[#000000] text-white px-6 py-3 rounded-full text-base font-medium transition-all duration-200 hover:bg-[#3c3c3c] disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                >
+                  {isLoading ? "Subscribing..." : "Subscribe"}
+                </button>
+              </div>
+              {message && (
+                <p className={`mt-3 text-sm ${message.includes("Success") ? "text-green-600" : "text-red-600"}`}>
+                  {message}
+                </p>
+              )}
+            </form>
           </div>
 
           <div className={styles.footerRight}>

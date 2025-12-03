@@ -30,9 +30,9 @@ interface DribbleProps {
 const defaultItems: DribbleItem[] = [
   {
     id: "1",
-    type: "video",
-    src: "/videos/heels gif mockup.mp4",
-    poster: "/videos/heels gif mockup.mp4",
+    type: "image",
+    src: "/videos/1.jpg",
+    poster: "/videos/1.jpg",
     title: "lorel ipsum dolor sit amet",
     description: "lorel ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
     hasContent: true,
@@ -40,17 +40,17 @@ const defaultItems: DribbleItem[] = [
   {
     id: "2",
     type: "video",
-    src: "/videos/18.mp4",
-    poster: "/videos/18.mp4",
-    title: "Visual Identity Lab",
-    description: "Material-driven identity systems—palette, type, textures, and signature.",
+    src: "/videos/28.mp4",
+    poster: "/videos/28.mp4",
+    title: "Modular Framer Websites",
+    description: "Component-driven builds with responsive grids and subtle motion.",
     hasContent: true,
   },
   {
     id: "3",
-    type: "video",
-    src: "/videos/Bed Gif Mockup.mp4",
-    poster: "/videos/Bed Gif Mockup.mp4",
+    type: "image",
+    src: "/videos/3.jpg",
+    poster: "/videos/3.jpg",
     title: "Covers",
     description: "We delivered over 250 editorial designs this year",
     hasContent: true,
@@ -58,53 +58,53 @@ const defaultItems: DribbleItem[] = [
   {
     id: "4",
     type: "video",
-    src: "/videos/Cone Ice Cream Mockup.mp4",
-    poster: "/videos/Cone Ice Cream Mockup.mp4",
-    title: "Foam Serum Launch",
-    description: "Bubbly physics + product CGI used across hero, ads, and socials.",
+    src: "/videos/27.mp4",
+    poster: "/videos/27.mp4",
+    title: "Modular Framer Websites",
+    description: "Component-driven builds with responsive grids and subtle motion.",
     hasContent: true,
   },
   {
     id: "5",
-    type: "video",
-    src: "/videos/F Soda Mockup.mp4",
-    poster: "/videos/F Soda Mockup.mp4",
+    type: "image",
+    src: "/videos/5.jpg",
+    poster: "/videos/5.jpg",
     title: "Visual Identity Lab",
     description: "Material-driven identity systems—palette, type, textures, and signature.",
     hasContent: true,
   },
   {
     id: "6",
-    type: "image",
-    src: "/videos/1.jpg",
-    poster: "/videos/1.jpg",
+    type: "video",
+    src: "/videos/26.mp4",
+    poster: "/videos/26.mp4",
     title: "Modular Framer Websites",
     description: "Component-driven builds with responsive grids and subtle motion.",
     hasContent: true,
   },
   {
     id: "7",
-    type: "video",
-    src: "/videos/Shoe gif mockup.mp4",
-    poster: "/videos/Shoe gif mockup.mp4",
-    title: "Modular Framer Websites",
-    description: "Component-driven builds with responsive grids and subtle motion.",
+    type: "image",
+    src: "/videos/7.jpg",
+    poster: "/videos/7.jpg",
+    title: "Promotional creative for luxury perfume brand",
+    description: "An immersive luxury scene showcasing product sophistication with nature",
     hasContent: true,
   },
   {
     id: "8",
     type: "video",
-    src: "/videos/19.mp4",
-    poster: "/videos/19.mp4",
+    src: "/videos/22.mp4",
+    poster: "/videos/22.mp4",
     title: "Modular Framer Websites",
     description: "Component-driven builds with responsive grids and subtle motion.",
     hasContent: true,
   },
   {
     id: "9",
-    type: "video",
-    src: "/videos/20.mp4",
-    poster: "/videos/20.mp4",
+    type: "image",
+    src: "/videos/9.jpg",
+    poster: "/videos/9.jpg",
     title: "Modular Framer Websites",
     description: "Component-driven builds with responsive grids and subtle motion.",
     hasContent: true,
@@ -120,9 +120,9 @@ const defaultItems: DribbleItem[] = [
   },
   {
     id: "11",
-    type: "video",
-    src: "/videos/22.mp4",
-    poster: "/videos/22.mp4",
+    type: "image",
+    src: "/videos/11.jpg",
+    poster: "/videos/11.jpg",
     title: "Modular Framer Websites",
     description: "Component-driven builds with responsive grids and subtle motion.",
     hasContent: true,
@@ -130,10 +130,119 @@ const defaultItems: DribbleItem[] = [
   {
     id: "12",
     type: "video",
-    src: "/videos/23.mp4",
-    poster: "/videos/23.mp4",
+    src: "/videos/18.mp4",
+    poster: "/videos/18.mp4",
     title: "Modular Framer Websites",
     description: "Component-driven builds with responsive grids and subtle motion.",
+    hasContent: true,
+    
+  },
+  {
+    id: "13",
+    type: "image",
+    src: "/videos/13.jpg",
+    poster: "/videos/13.jpg",
+    title: "Modular Framer Websites",
+    description: "Component-driven builds with responsive grids and subtle motion.",
+    hasContent: true,
+  },
+  {
+    id: "14",
+    type: "image",
+    src: "/videos/14.jpg",
+    poster: "/videos/14.jpg",
+    title: "Modular Framer Websites",
+    description: "Component-driven builds with responsive grids and subtle motion.",
+    hasContent: true,
+  },
+  {
+    id: "15",
+    type: "image",
+    src: "/videos/15.jpg",
+    poster: "/videos/15.jpg",
+    title: "Modular Framer Websites",
+    description: "Component-driven builds with responsive grids and subtle motion.",
+    hasContent: true,
+  },
+  {
+    id: "16",
+    type: "image",
+    src: "/videos/16.jpg",
+    poster: "/videos/16.jpg",
+    title: "Modular Framer Websites",
+    description: "Component-driven builds with responsive grids and subtle motion.",
+    hasContent: true,
+  },
+  {
+    id: "17",
+    type: "image",
+    src: "/videos/17.jpg",
+    poster: "/videos/17.jpg",
+    title: "Modular Framer Websites",
+    description: "Component-driven builds with responsive grids and subtle motion.",
+    hasContent: true,
+  },
+  {
+    id: "18",
+    type: "image",
+    src: "/videos/24.jpg",
+    poster: "/videos/24.jpg",
+    title: "Modular Framer Websites",
+    description: "Component-driven builds with responsive grids and subtle motion.",
+    hasContent: true,
+  },
+  {
+    id: "19",
+    type: "image",
+    src: "/videos/12.jpg",
+    poster: "/videos/12.jpg",
+    title: "Modular Framer Websites",
+    description: "Component-driven builds with responsive grids and subtle motion.",
+    hasContent: true,
+  },
+  {
+    id: "20",
+    type: "image",
+    src: "/videos/10.jpg",
+    poster: "/videos/10.jpg",
+    title: "Modular Framer Websites",
+    description: "Component-driven builds with responsive grids and subtle motion.",
+    hasContent: true,
+  },
+  {
+    id: "21",
+    type: "image",
+    src: "/videos/8.jpg",
+    poster: "/videos/8.jpg",
+    title: "Modular Framer Websites",
+    description: "Component-driven builds with responsive grids and subtle motion.",
+    hasContent: true,
+  },
+  {
+    id: "22",
+    type: "image",
+    src: "/videos/6.jpg",
+    poster: "/videos/6.jpg",
+    title: "Seafood Concept Creative",
+    description: "A visually rich concept that elevates a simple dish into an expressive narrative.",
+    hasContent: true,
+  },
+  {
+    id: "23",
+    type: "image",
+    src: "/videos/4.jpg",
+    poster: "/videos/4.jpg",
+    title: "Foam Serum Launch",
+    description: "Bubbly physics + product CGI used across hero, ads, and socials.",
+    hasContent: true,
+  },
+  {
+    id: "24",
+    type: "image",
+    src: "/videos/2.jpg",
+    poster: "/videos/2.jpg",
+    title: "Visual Identity Lab",
+    description: "Material-driven identity systems—palette, type, textures, and signature.",
     hasContent: true,
   },
 ];
@@ -146,41 +255,85 @@ const DribbleCard: React.FC<{
   item: DribbleItem;
   isHovered: boolean;
   onHover: (id: string | null) => void;
-}> = ({ item, isHovered, onHover }) => {
+  index: number;
+}> = ({ item, isHovered, onHover, index }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldPlay, setShouldPlay] = useState(false);
 
+  // Stagger video initialization to prevent all videos loading at once
   useEffect(() => {
-    if (videoRef.current && item.type === "video") {
-      videoRef.current.play().catch(() => {});
+    if (item.type === "video") {
+      // Stagger by 50ms per item to spread out the load
+      const delay = Math.min(index * 50, 2000); // Max 2 second delay
+      
+      const timer = setTimeout(() => {
+        setShouldPlay(true);
+      }, delay);
+
+      return () => clearTimeout(timer);
+    } else {
+      setShouldPlay(true);
     }
-  }, [item.type]);
+  }, [item.type, index]);
+
+  // Play video when ready
+  useEffect(() => {
+    if (shouldPlay && videoRef.current && item.type === "video") {
+      // Use requestIdleCallback to play during idle time
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          videoRef.current?.play().catch(() => {});
+        }, { timeout: 500 });
+      } else {
+        requestAnimationFrame(() => {
+          videoRef.current?.play().catch(() => {});
+        });
+      }
+    }
+  }, [shouldPlay, item.type]);
 
   return (
     <motion.div
       className="relative flex-shrink-0 h-full rounded-xl overflow-hidden cursor-pointer group"
-      style={{ width: "300px" }}
+      style={{ 
+        width: "300px",
+        contentVisibility: 'auto', // Browser optimizes off-screen rendering
+        containIntrinsicSize: '300px 480px' // Placeholder size for layout
+      }}
       onMouseEnter={() => onHover(item.id)}
       onMouseLeave={() => onHover(null)}
       transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
     >
       {/* Media Content */}
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-full bg-gray-100">
         {item.type === "video" ? (
           <video
             ref={videoRef}
-            src={item.src}
+            src={shouldPlay ? item.src : undefined}
             poster={item.poster}
             loop
             muted
             playsInline
-            autoPlay
+            preload={shouldPlay ? "auto" : "none"}
             className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+            style={{ 
+              willChange: 'transform',
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden'
+            }}
           />
         ) : (
           <img
             src={item.src}
             alt={item.title || "Dribble item"}
+            loading={index < 6 ? "eager" : "lazy"} // First 6 items load immediately
+            decoding="async"
             className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+            style={{ 
+              willChange: 'transform',
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden'
+            }}
           />
         )}
 
@@ -191,7 +344,8 @@ const DribbleCard: React.FC<{
       {/* Content Overlay */}
       {item.hasContent && (
         <>
-          <div className="absolute bottom-4 left-4 right-4 text-white">
+          {/* Description Overlay */}
+          <div className="absolute flex flex-col inset-0 bg-gradient-to-b from-transparent to-black opacity-0 transition-all duration-500 p-6 justify-end group-hover:opacity-100">
             <motion.h3
               className="text-xl font-bold mb-1"
               initial={{ y: 20, opacity: 0 }}
@@ -200,13 +354,6 @@ const DribbleCard: React.FC<{
             >
               {item.title}
             </motion.h3>
-            <p className="text-sm text-gray-200 opacity-80">
-              {item.description ? "Design & Development" : "Visual Design"}
-            </p>
-          </div>
-
-          {/* Description Overlay */}
-          <div className="absolute inset-0 backdrop-blur-md bg-black/40 opacity-0 transition-opacity duration-500 p-6 flex items-center group-hover:opacity-100">
             <p className="text-white/90 text-base leading-relaxed">
               {item.description}
             </p>
@@ -234,16 +381,13 @@ export const Dribble: React.FC<DribbleProps> = ({
   const lastTimeRef = useRef<number | null>(null);
 
   const totalItems = items.length;
-  const extendedItems = [...items, ...items, ...items];
+  // Reduced from 3 to 2 copies for better performance (still infinite)
+  const extendedItems = [...items, ...items];
 
   const cardWidth = 300;
   const gapPx = 15;
   const cardScrollWidth = cardWidth + gapPx;
   const singleSetWidth = totalItems * cardScrollWidth;
-
-  useEffect(() => {
-    setTranslateX(-singleSetWidth);
-  }, [singleSetWidth]);
 
   const animate = useCallback(
     (currentTime: number) => {
@@ -256,8 +400,9 @@ export const Dribble: React.FC<DribbleProps> = ({
 
       setTranslateX((prev) => {
         let newTranslateX = prev - autoScrollSpeed * deltaTime;
-        const middleSetEnd = -2 * singleSetWidth;
-        if (newTranslateX < middleSetEnd) {
+        // Adjusted for 2 copies instead of 3
+        const loopPoint = -singleSetWidth;
+        if (newTranslateX < loopPoint) {
           newTranslateX = newTranslateX + singleSetWidth;
         }
         return newTranslateX;
@@ -339,6 +484,7 @@ export const Dribble: React.FC<DribbleProps> = ({
             className="flex gap-[15px] h-full"
             style={{
               transform: `translateX(${translateX}px)`,
+              willChange: 'transform'
             }}
           >
             {extendedItems.map((item, index) => (
@@ -347,6 +493,7 @@ export const Dribble: React.FC<DribbleProps> = ({
                 item={item}
                 isHovered={hoveredId === `${item.id}-${index}`}
                 onHover={(id) => setHoveredId(id ? `${item.id}-${index}` : null)}
+                index={index}
               />
             ))}
           </div>

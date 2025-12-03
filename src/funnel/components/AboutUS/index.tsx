@@ -207,7 +207,7 @@ function TeamCard({ member }: TeamCardProps) {
           src={member.image}
           alt={member.name}
           fill
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={styles.teamCardImage}
         />
         <div className={styles.teamCardGradient}></div>

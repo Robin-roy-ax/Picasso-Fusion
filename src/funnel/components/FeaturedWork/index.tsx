@@ -7,6 +7,7 @@ import { useRef, useEffect, useState } from 'react';
 import { Project, projects } from './data';
 import styles from './style.module.css';
 import ViewProjectCursor from "@/funnel/components/common/MousePointer";
+import { debounce, rafThrottle } from "@/utils/performance";
 
 export default function FeaturedWork() {
   const [isMobile, setIsMobile] = useState(false);
@@ -22,18 +23,21 @@ export default function FeaturedWork() {
     };
     
     checkMobile();
-    window.addEventListener('resize', checkMobile);
     
-    return () => window.removeEventListener('resize', checkMobile);
+    // Debounce resize handler
+    const debouncedResize = debounce(checkMobile, 150);
+    window.addEventListener('resize', debouncedResize, { passive: true });
+    
+    return () => window.removeEventListener('resize', debouncedResize);
   }, []);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = rafThrottle((e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
-    };
+    });
 
     if (!isMobile) {
-      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
     }
 
     return () => {

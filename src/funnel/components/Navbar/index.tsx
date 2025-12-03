@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MENU_ITEMS, CTA_BUTTON_TEXT, LOGO_IMAGE } from "./data";
 import styles from "./style.module.css";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { throttle } from "@/utils/performance";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -53,9 +54,12 @@ export default function Navbar() {
       setNavbarVisible(!shouldHide);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    // Throttle scroll handler to run at most every 100ms
+    const throttledScroll = throttle(handleScroll, 100);
+
+    window.addEventListener("scroll", throttledScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", throttledScroll);
   }, [pathname, isProjectPage]);
 
   const menuColor = inHero ? "#fff" : "#000";

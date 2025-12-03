@@ -31,18 +31,6 @@
   margin-bottom: 4rem;
 }
 
-:root {
-  --color-white: #fff;
-  --color-black: #000;
-  --color-blue: #1d52e5;
-  --color-primary: #28334d;
-  --color-muted: #8592b1;
-  --color-primary-transparent: #28334d99;
-  --color-dark: #111a3b;
-  --color-light-bg: #f5f6fa;
-  --color-border: #dde3ee;
-  --color-overlay: #ccd5e899;
-}
 
 /* =============================
    TYPOGRAPHY STYLES

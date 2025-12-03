@@ -7,16 +7,18 @@ import Link from "next/link";
 import { projects } from "./data";
 import ViewProjectCursor from "@/funnel/components/common/MousePointer";
 import styles from "./style.module.css";
+import { rafThrottle } from "@/utils/performance";
 
 export default function WorkSection() {
   const [cursorVisible, setCursorVisible] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = rafThrottle((e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    if (cursorVisible) window.addEventListener("mousemove", handleMouseMove);
+    });
+    
+    if (cursorVisible) window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [cursorVisible]);
 
