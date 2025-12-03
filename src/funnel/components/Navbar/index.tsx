@@ -147,11 +147,6 @@ export default function Navbar() {
                 mobileOpen ? styles.hamburgerLineOpen2 : ""
               }`}
             />
-            <span
-              className={`${styles.hamburgerLine} ${
-                mobileOpen ? styles.hamburgerLineOpen3 : ""
-              }`}
-            />
           </button>
         </div>
       </div>

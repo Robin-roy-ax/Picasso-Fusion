@@ -192,7 +192,7 @@ export default function HomeSection() {
           </div>
         </div>
         <div className={styles.footerBottom}>
-          <p>© Picasso Fusion 2024. All rights reserved</p>
+          <p>© Picasso Fusion 2025. All rights reserved</p>
           <p>Our Design, Your Vision</p>
         </div>
       </footer>
