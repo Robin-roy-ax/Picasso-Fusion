@@ -7,14 +7,14 @@
  * @param func - Function to throttle
  * @param delay - Minimum delay between executions in milliseconds
  */
-export function throttle<T extends (...args: any[]) => any>(
+export function throttle<T extends (...args: unknown[]) => unknown>(
     func: T,
     delay: number
 ): (...args: Parameters<T>) => void {
     let lastCall = 0;
     let timeoutId: NodeJS.Timeout | null = null;
 
-    return function (this: any, ...args: Parameters<T>) {
+    return function (this: unknown, ...args: Parameters<T>) {
         const now = Date.now();
         const timeSinceLastCall = now - lastCall;
 
@@ -36,13 +36,13 @@ export function throttle<T extends (...args: any[]) => any>(
  * @param func - Function to debounce
  * @param delay - Delay in milliseconds
  */
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
     func: T,
     delay: number
 ): (...args: Parameters<T>) => void {
     let timeoutId: NodeJS.Timeout | null = null;
 
-    return function (this: any, ...args: Parameters<T>) {
+    return function (this: unknown, ...args: Parameters<T>) {
         if (timeoutId) clearTimeout(timeoutId);
 
         timeoutId = setTimeout(() => {
@@ -51,16 +51,14 @@ export function debounce<T extends (...args: any[]) => any>(
     };
 }
 
-/**
- * Request animation frame throttle - ensures function runs at most once per frame
- * @param func - Function to throttle
- */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function rafThrottle<T extends (...args: any[]) => any>(
     func: T
 ): (...args: Parameters<T>) => void {
     let rafId: number | null = null;
     let latestArgs: Parameters<T> | null = null;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function (this: any, ...args: Parameters<T>) {
         latestArgs = args;
 

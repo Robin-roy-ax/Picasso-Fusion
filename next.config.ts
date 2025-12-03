@@ -15,7 +15,6 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60, // Cache images for 60 seconds
   },
   // Optimize production builds
-  swcMinify: true,
   compress: true,
 
   // Performance optimizations
