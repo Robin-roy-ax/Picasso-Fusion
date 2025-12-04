@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Plus, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 // Types
 interface DribbleItem {
@@ -124,7 +125,7 @@ const DribbleCard: React.FC<{
           className="w-full h-full object-cover rounded-xl"
         />
       ) : (
-        <img
+        <Image
           src={item.src}
           alt={item.title || "Dribble item"}
           className="w-full h-full object-cover rounded-xl"

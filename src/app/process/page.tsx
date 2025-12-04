@@ -1,10 +1,9 @@
 "use client";
 
-import type { Metadata } from "next";
 import { useEffect } from "react";
 import Hero from "@/funnel/components/Hero/page";
 import About from "@/funnel/components/About/page";
-import Dribbble from "@/funnel/components/Dribbble/Dribble";
+import Dribbble from "@/funnel/components/Dribbble/page";
 
 import Testimonials from "@/funnel/components/Testimonials/page";
 import Benefits from "@/funnel/components/Benefits/page";

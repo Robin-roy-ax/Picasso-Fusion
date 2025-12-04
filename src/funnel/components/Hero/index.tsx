@@ -185,9 +185,9 @@ export default function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: HERO_ANIMATIONS.scrollText.delay }}
-        className="absolute bottom-5 text-gray-400 text-sm"
+        className={`${styles.heroScrollText} ${styles.scrollPop} ${styles.scrollInvite}`}
       >
-        {SCROLL_DOWN_TEXT}
+        <span className={styles.scrollInviteText}>{SCROLL_DOWN_TEXT}</span>
       </motion.div>
     </motion.section>
   );

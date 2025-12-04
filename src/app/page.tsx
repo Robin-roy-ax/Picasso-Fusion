@@ -7,8 +7,7 @@ import Testimonials from "@/funnel/components/Testimonials/page";
 import Service from "@/funnel/components/Benefits/page";
 import Benefit from "@/funnel/components/Process/page";
 import Pricing from "@/funnel/components/Pricing/index";
-import FaqPage from "@/funnel/components/FaqPage/page";
-import Dribbble from "@/funnel/components/Dribbble/Dribble";
+import Dribbble from "@/funnel/components/Dribbble/page";
 
 
 export const metadata: Metadata = {

@@ -214,10 +214,11 @@
 }
 
 .testimonialQuote {
-  color: rgb(107, 114, 128);
+  /* color: rgb(107, 114, 128); */
+  color: rgb(60, 60, 60);
   font-size: 0.8125rem;
   margin-bottom: 0.875rem;
-  font-weight: 500;
+  font-weight: 450;
   line-height: 1.5;
 }
 

@@ -1,4 +1,4 @@
-import Dribbble from "./Dribble";
+import Dribbble from "./index";
 
 export default function DribbblePage() {
   return (

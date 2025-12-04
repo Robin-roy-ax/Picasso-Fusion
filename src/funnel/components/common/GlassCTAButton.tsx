@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, type ElementType } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
@@ -14,6 +14,7 @@ const GlassCTAButton: React.FC<{
   initialTextColor?: string;
   hoverTextColor?: string;
   rootClassName?: string;
+  asChild?: boolean;
 }> = ({ 
   href, 
   text, 
@@ -23,15 +24,16 @@ const GlassCTAButton: React.FC<{
   initialBgColor = "rgba(255,255,255,0.12)",
   initialTextColor = "#000000ff",
   hoverTextColor = "#ffffffff",
-  rootClassName
+  rootClassName,
+  asChild = false,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const Root: ElementType = asChild ? motion.span : motion.a;
+
   return (
-    <motion.a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Root
+      {...(!asChild ? { href, target: "_blank", rel: "noopener noreferrer" } : {})}
       className={`relative inline-flex items-center cursor-pointer select-none ${rootClassName}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -106,7 +108,7 @@ const GlassCTAButton: React.FC<{
           />
         </motion.span>
       </motion.div>
-    </motion.a>
+    </Root>
   );
 };
 

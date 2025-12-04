@@ -41,7 +41,7 @@ export default function About() {
         }}
       >
         <Link href="/about">
-          <GlassCTAButton href="/about" text={ABOUT_BUTTON_TEXT} />
+          <GlassCTAButton asChild href="/about" text={ABOUT_BUTTON_TEXT} />
         </Link>
       </motion.div>
     </section>

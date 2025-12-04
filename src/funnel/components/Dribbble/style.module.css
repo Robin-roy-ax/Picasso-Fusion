@@ -1,0 +1,19 @@
+.card {
+  width: 300px;
+  content-visibility: auto;
+  contain-intrinsic-size: 300px 480px;
+}
+
+.media {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.track {
+  will-change: transform;
+}
+
+.serif {
+  font-family: "Instrument Serif", serif;
+}
