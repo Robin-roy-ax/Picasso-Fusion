@@ -9,6 +9,8 @@ import FaqPage from "@/funnel/components/FaqPage";
 import GradualBlur from "@/funnel/components/common/GradualBlur";
 import ScrollRestoration from "@/funnel/components/common/ScrollRestoration";
 
+import ConditionalLayout from "./ConditionalLayout";
+
 const interSans = Inter({
   variable: "--font-inter-sans",
   subsets: ["latin"],
@@ -106,11 +108,7 @@ export default function RootLayout({
         <ScrollRestoration />
         <CursorProvider>
           <CustomCursor />
-          <Navbar />
-          {children}
-          <FaqPage/>
-          <Footer />
-          <GradualBlur position="bottom" height="100px" zIndex={999} fixed />
+          <ConditionalLayout>{children}</ConditionalLayout>
         </CursorProvider>
         <script
           type="application/ld+json"

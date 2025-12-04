@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MENU_ITEMS, CTA_BUTTON_TEXT, LOGO_IMAGE } from "./data";
 import styles from "./style.module.css";
@@ -54,7 +54,6 @@ export default function Navbar() {
       setNavbarVisible(!shouldHide);
     };
 
-    // Throttle scroll handler to run at most every 100ms
     const throttledScroll = throttle(handleScroll, 100);
 
     window.addEventListener("scroll", throttledScroll, { passive: true });

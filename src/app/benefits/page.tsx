@@ -11,15 +11,12 @@ import Pricing from "@/funnel/components/Pricing/index";
 
 export default function BenefitsPage() {
   useEffect(() => {
-    // Scroll to benefits section after page renders
     const scrollToSection = () => {
       const section = document.getElementById("benefits");
       if (section) {
-        // Get header height for offset
         const header = document.querySelector("header");
         const headerHeight = header?.offsetHeight || 80;
         
-        // Scroll with offset for header
         const elementPosition = section.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
 
@@ -32,10 +29,8 @@ export default function BenefitsPage() {
       return false;
     };
 
-    // Try after a short delay to ensure DOM is ready
     const timer = setTimeout(() => {
       if (!scrollToSection()) {
-        // Retry if element not found
         setTimeout(scrollToSection, 200);
       }
     }, 100);
@@ -48,9 +43,10 @@ export default function BenefitsPage() {
       <Hero />
       <About />
       <Dribbble />
-      <div className="bg-[white] pt-20 md:pt-24">
+      {/* <div className="bg-[white] pt-20 md:pt-24">
         <Benefits />
-      </div>
+      </div> */}
+      <Benefits />
       <Process />
       <Testimonials />
       <Pricing />

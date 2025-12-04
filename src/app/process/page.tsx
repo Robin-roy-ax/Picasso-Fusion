@@ -12,15 +12,12 @@ import Pricing from "@/funnel/components/Pricing/index";
 
 export default function ProcessPage() {
   useEffect(() => {
-    // Scroll to process section after page renders
     const scrollToSection = () => {
       const section = document.getElementById("process");
       if (section) {
-        // Get header height for offset
         const header = document.querySelector("header");
         const headerHeight = header?.offsetHeight || 80;
         
-        // Scroll with offset for header
         const elementPosition = section.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
 
@@ -33,10 +30,8 @@ export default function ProcessPage() {
       return false;
     };
 
-    // Try after a short delay to ensure DOM is ready
     const timer = setTimeout(() => {
       if (!scrollToSection()) {
-        // Retry if element not found
         setTimeout(scrollToSection, 200);
       }
     }, 100);

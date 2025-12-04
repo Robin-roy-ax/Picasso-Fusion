@@ -24,7 +24,7 @@ export default function FeaturedWork() {
     
     checkMobile();
     
-    // Debounce resize handler
+
     const debouncedResize = debounce(checkMobile, 150);
     window.addEventListener('resize', debouncedResize, { passive: true });
     

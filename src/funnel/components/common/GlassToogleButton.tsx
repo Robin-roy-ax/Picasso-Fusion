@@ -7,7 +7,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 interface GlassToggleButtonProps {
   expanded: boolean;
   onClick: () => void;
-  highlight?: boolean; // for dark plans
+  highlight?: boolean; 
 }
 
 export default function GlassToggleButton({
@@ -44,10 +44,10 @@ export default function GlassToggleButton({
       }}
       transition={{ type: "spring", stiffness: 240, damping: 20 }}
     >
-      {/* LABEL */}
+
       <span>{expanded ? "Hide All Features" : "Show All Features"}</span>
 
-      {/* ICON */}
+
       <motion.div
         animate={{ rotate: expanded ? 0 : 0 }}
         transition={{ duration: 0.25 }}

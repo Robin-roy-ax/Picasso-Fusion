@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Hero from "@/funnel/components/Hero/page";
 import About from "@/funnel/components/About/page";
-// import Dribbble from "@/funnel/components/Dribbble/Dribbble";
+
 
 import Testimonials from "@/funnel/components/Testimonials/page";
 import Service from "@/funnel/components/Benefits/page";
@@ -23,7 +23,6 @@ export default function Home() {
     <>
       <Hero />
       <About />
-      {/* <Dribbble /> */}
       <Dribbble />
       <Service />
       <Benefit />
