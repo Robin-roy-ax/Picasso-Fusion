@@ -6,9 +6,13 @@ import { services } from "./data";
 import styles from "./style.module.css";
 
 
-export default function Benefits() {
+interface BenefitsProps {
+  id?: string;
+}
+
+export default function Benefits({ id = "benefits" }: BenefitsProps) {
   return (
-    <section id="benefits" className={styles.section}>
+    <section id={id} className={styles.section}>
       <div className={styles.container}>
         <motion.h2
           initial={{ opacity: 1, y: 50 }}

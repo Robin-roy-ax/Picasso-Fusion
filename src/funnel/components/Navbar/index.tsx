@@ -79,7 +79,18 @@ export default function Navbar() {
       if (id) {
         const element = document.getElementById(id);
         if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          // Get header height for offset
+          const header = document.querySelector("nav");
+          const headerHeight = header?.offsetHeight || 80;
+          
+          // Scroll with offset for header
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
         }
       } else if (href === "/") {
         window.scrollTo({ top: 0, behavior: "smooth" });

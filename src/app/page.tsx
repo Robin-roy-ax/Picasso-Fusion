@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import Hero from "@/funnel/components/Hero/page";
 import About from "@/funnel/components/About/page";
-// import Dribbble from "@/funnel/components/Dribbble/Dribbble";
-
 import Testimonials from "@/funnel/components/Testimonials/page";
-import Service from "@/funnel/components/Benefits/page";
-import Benefit from "@/funnel/components/Process/page";
-import Pricing from "@/funnel/components/Pricing/index";
+import Pricing from "@/funnel/components/Pricing/page";
 import Dribbble from "@/funnel/components/Dribbble/page";
+import Process from "@/funnel/components/Process/page";
+import Benefits from "@/funnel/components/Benefits/page";
 
 
 export const metadata: Metadata = {
@@ -23,10 +21,9 @@ export default function Home() {
     <>
       <Hero />
       <About />
-      {/* <Dribbble /> */}
       <Dribbble />
-      <Service />
-      <Benefit />
+      <Benefits />
+      <Process />
       <Testimonials />
       <Pricing />
       

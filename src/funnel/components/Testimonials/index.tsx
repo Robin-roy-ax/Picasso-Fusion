@@ -2,7 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState, useCallback } from "react";
+import { useQuery } from "@sanity/react-loader";
 import {
   TESTIMONIALS_DATA,
   TESTIMONIALS_TEXT,
@@ -10,8 +10,15 @@ import {
   Testimonial
 } from "./data";
 import styles from "./style.module.css";
-import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
+
+const TESTIMONIALS_QUERY = `*[_type == "testimonial"]{
+  _id,
+  quote,
+  name,
+  title,
+  image
+}`;
 
 const cardVariants: Variants = {
   hidden: { 
@@ -30,39 +37,18 @@ const cardVariants: Variants = {
 };
 
 export default function Testimonials() {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>(TESTIMONIALS_DATA);
-  const [isFetching, setIsFetching] = useState(false);
-
-  const fetchTestimonials = useCallback(async () => {
-    if (isFetching) return; // Prevent duplicate fetches
-    
-    setIsFetching(true);
-    const query = `*[_type == "testimonial"]{
-      quote,
-      name,
-      title,
-      image
-    }`;
-    try {
-      const data = await client.fetch(query);
-      if (data && data.length > 0) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const mappedData = data.map((item: any) => ({
-          ...item,
-          image: item.image ? urlFor(item.image).url() : "",
-        }));
-        setTestimonials(mappedData);
-      }
-    } catch (error) {
-      console.error("Failed to fetch testimonials:", error);
-    } finally {
-      setIsFetching(false);
-    }
-  }, [isFetching]);
-
-  useEffect(() => {
-    fetchTestimonials();
-  }, [fetchTestimonials]);
+  // Use useQuery for visual editing support
+  const { data } = useQuery<Testimonial[]>(TESTIMONIALS_QUERY, {}, { initial: { data: TESTIMONIALS_DATA, sourceMap: undefined } });
+  
+  // Map Sanity data to component format
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const testimonials: Testimonial[] = data && Array.isArray(data) ? data.map((item: any) => ({
+    ...item,
+    // Handle both string URLs and Sanity image objects
+    image: item.image 
+      ? (typeof item.image === 'string' ? item.image : urlFor(item.image).url())
+      : "",
+  })) : TESTIMONIALS_DATA;
 
   return (
     <section id="testimonials" className={styles.testimonialsSection}>

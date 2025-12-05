@@ -3,11 +3,13 @@ import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/funnel/components/common/CustomCursor";
 import { CursorProvider } from "@/funnel/components/common/CursorContext";
-import Navbar from "@/funnel/components/Navbar/index";
-import Footer from "@/funnel/components/Footer/index";
-import FaqPage from "@/funnel/components/FaqPage";
-import GradualBlur from "@/funnel/components/common/GradualBlur";
 import ScrollRestoration from "@/funnel/components/common/ScrollRestoration";
+import { DraftModeProvider } from "@/components/DraftModeProvider";
+import { draftMode } from "next/headers";
+import ConditionalLayout from "@/components/ConditionalLayout";
+import { VisualEditing } from "next-sanity/visual-editing";
+import { client } from "@/sanity/lib/client";
+import { SanityProvider } from "@/components/SanityProvider";
 
 const interSans = Inter({
   variable: "--font-inter-sans",
@@ -94,24 +96,32 @@ const jsonLd = {
   description: "Picasso Fusion is a platform that allows users to create their own digital art.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isEnabled } = await draftMode();
+
   return (
     <html lang="en">
       <body
         className={`${interSans.variable} ${instrumentSerif.variable} font-sans antialiased`}>
-        <ScrollRestoration />
-        <CursorProvider>
-          <CustomCursor />
-          <Navbar />
-          {children}
-          <FaqPage/>
-          <Footer />
-          <GradualBlur position="bottom" height="100px" zIndex={999} fixed />
-        </CursorProvider>
+        <SanityProvider isPreview={isEnabled}>
+          <ScrollRestoration />
+          <CursorProvider>
+            <CustomCursor />
+            <ConditionalLayout>
+              {children}
+            </ConditionalLayout>
+          </CursorProvider>
+          {isEnabled && (
+            <>
+              <DraftModeProvider />
+              <VisualEditing />
+            </>
+          )}
+        </SanityProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

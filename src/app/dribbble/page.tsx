@@ -47,9 +47,7 @@ export default function DribbblePage() {
     <>
       <Hero />
       <About />
-      <div className="bg-[white] pt-20 md:pt-24">
-        <Dribbble />
-      </div>
+      <Dribbble />
       <Benefits />
       <Process />
       <Testimonials />

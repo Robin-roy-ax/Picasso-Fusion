@@ -1,5 +1,9 @@
-import Services from "./index";
+import Benefits from "./index";
 
-export default function Page() {
-  return <Services />;
+interface Props {
+  id?: string;
+}
+
+export default function Page({ id }: Props) {
+  return <Benefits id={id} />;
 }
