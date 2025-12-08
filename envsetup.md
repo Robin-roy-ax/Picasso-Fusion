@@ -1,26 +1,8 @@
-# Environment Setup
+## Environment Setup
 
-To run this project, you need to set up the following environment variables. You can copy `.env.local.example` to `.env.local` if available, or create a new `.env.local` file in the root directory.
+NEXT_PUBLIC_SANITY_PROJECT_ID="3ajenyek"
+NEXT_PUBLIC_SANITY_DATASET="pro"
 
-## Required Variables
+SANITY_API_READ_TOKEN="skmYnGZRHJKNpvvYBaa0strICFBBjCfV1WejYar45OHFSSB4w5RRyFxwjV9WWr6R40HjIwtkTyrrJOkoylaSc777OjXzseixxvrRQjgTVl4fgEAZYUIVlZ3YgrvckwSJitBUT7Xm9Ylc8p49cho721wuesUqGL7PY82WREDqYu1pGT9VMhEB"
 
-The following variables are required for Sanity integration:
-
-\`\`\`bash
-# Sanity Project Configuration
-NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
-NEXT_PUBLIC_SANITY_DATASET=your_dataset_name
-
-# Sanity API Tokens
-# Token with read permissions
-SANITY_API_READ_TOKEN=your_read_token
-# Token with write permissions (for visual editing/mutations)
-SANITY_API_WRITE_TOKEN=your_write_token
-\`\`\`
-
-## Getting Values
-
-1. **Project ID & Dataset**: Found in your Sanity project dashboard under **Project Settings > General**.
-2. **API Tokens**: Generate these in **Project Settings > API > Tokens**.
-    - Create a token with **Viewer** role for `SANITY_API_READ_TOKEN`.
-    - Create a token with **Editor** role for `SANITY_API_WRITE_TOKEN`.
+SANITY_API_WRITE_TOKEN="skWlUxSclhWgy52oiZGW5TNA8H5XSN81APvyrM0Sg9PlpT7LzxI04zGV22Fyc5rHO2RJLz9Cp5j0PA000xlY7XT0oJtQBHTgTzNHIdauX1umUB5gN1imqLgRnwbSxOwfspD7QR0DYewdAZfffe4ItYPGsOfPmgPa8NWAc1sqVFLbbfebVZKP"

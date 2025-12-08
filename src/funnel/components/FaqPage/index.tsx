@@ -2,12 +2,45 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { faqs } from "./data";
+import { faqs as defaultFaqs } from "./data";
 import styles from "./style.module.css";
 import { Plus, X } from "lucide-react";
+import { PortableText } from "next-sanity";
+import { FAQ_LIST_QUERYResult } from "@/sanity.types";
 
-export default function FAQSection() {
+// Define types locally if not available
+type FaqSectionConfig = {
+    title?: string;
+    titleHighlight?: string;
+    description?: string;
+};
+// Re-using the query result type for the items part roughly, or defining custom
+type FaqItem = {
+    question?: string;
+    answer?: any;
+};
+
+interface FAQSectionProps {
+  data?: {
+      section?: FaqSectionConfig;
+      items?: FaqItem[];
+  };
+}
+
+export default function FAQSection({ data }: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const { section, items: fetchedItems } = data || {};
+  
+  const title = section?.title || "Your Questions,";
+  const titleHighlight = section?.titleHighlight || "Simplified";
+  const description = section?.description || "Explore our FAQ section for clear answers to common questions about how Picasso Fusion works, its features, and how to get the most out of our design platform.";
+
+  const faqs = fetchedItems && fetchedItems.length > 0 ? fetchedItems.map(item => ({
+    question: item.question || "",
+    answer: item.answer || [],
+    isPortableText: Array.isArray(item.answer)
+  })) : defaultFaqs.map(item => ({ ...item, isPortableText: false }));
 
   return (
     <motion.section
@@ -24,8 +57,8 @@ export default function FAQSection() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          Your Questions,{" "}
-          <span>Simplified</span>
+          {title}{" "}
+          <span>{titleHighlight}</span>
         </motion.h2>
         <motion.p
           className={styles.description}
@@ -34,7 +67,7 @@ export default function FAQSection() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          Explore our FAQ section for clear answers to common questions about how Picasso Fusion works, its features, and how to get the most out of our design platform.
+          {description}
         </motion.p>
       </div>
 
@@ -61,7 +94,11 @@ export default function FAQSection() {
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    {faq.answer}
+                    {faq.isPortableText ? (
+                      <PortableText value={faq.answer as any} />
+                    ) : (
+                      faq.answer as string
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>

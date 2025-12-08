@@ -1,8 +1,9 @@
-// Re-export the About component and related data for easy importing
-export { default as About } from "./index";
-export {
-  ABOUT_TEXT,
-  ABOUT_BUTTON_TEXT,
-  ABOUT_ANIMATIONS
-} from "./data";
-export { default } from "./index";
+import { sanityFetch } from "@/sanity/lib/live";
+import { ABOUT_QUERY } from "@/sanity/lib/queries";
+import AboutClient from "./index";
+
+export default async function AboutPage() {
+  const { data } = await sanityFetch({ query: ABOUT_QUERY });
+  
+  return <AboutClient data={data} />;
+}

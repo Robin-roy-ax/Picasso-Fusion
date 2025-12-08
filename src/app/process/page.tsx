@@ -12,11 +12,14 @@ import Pricing from "@/funnel/components/Pricing/index";
 
 export default function ProcessPage() {
   useEffect(() => {
+    
     const scrollToSection = () => {
       const section = document.getElementById("process");
       if (section) {
+        
         const header = document.querySelector("header");
         const headerHeight = header?.offsetHeight || 80;
+        
         
         const elementPosition = section.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
@@ -30,8 +33,10 @@ export default function ProcessPage() {
       return false;
     };
 
+    
     const timer = setTimeout(() => {
       if (!scrollToSection()) {
+        
         setTimeout(scrollToSection, 200);
       }
     }, 100);

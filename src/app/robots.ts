@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: "/",
             disallow: "/private/",
         },
-        sitemap: "https://picasso-fusion.vercel.app/sitemap.xml", // Replace with actual domain
+        sitemap: "https://picasso-fusion.vercel.app/sitemap.xml", 
     };
 }

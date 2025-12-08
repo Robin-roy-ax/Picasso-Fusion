@@ -43,10 +43,9 @@ export default function BenefitsPage() {
       <Hero />
       <About />
       <Dribbble />
-      {/* <div className="bg-[white] pt-20 md:pt-24">
-        <Benefits />
-      </div> */}
-      <Benefits />
+      <div id="benefits" className="bg-[white] pt-26 md:pt-30">
+        <Benefits id="benefits-content" />
+      </div>
       <Process />
       <Testimonials />
       <Pricing />

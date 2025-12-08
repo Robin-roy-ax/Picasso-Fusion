@@ -1,14 +1,9 @@
+import { sanityFetch } from "@/sanity/lib/live";
+import { HERO_QUERY } from "@/sanity/lib/queries";
+import HeroClient from "./index";
 
-export { default as Hero } from "./index";
-export {
-  HERO_SUBTITLE,
-  HERO_MAIN_HEADING,
-  HERO_DESCRIPTION,
-  HERO_BUTTONS,
-  AVATAR_IMAGES,
-  CLIENT_COUNT_TEXT,
-  SCROLL_DOWN_TEXT,
-  HERO_ANIMATIONS,
-  CSS_TOKENS
-} from "./data";
-export { default } from "./index";
+export default async function HeroPage() {
+  const { data } = await sanityFetch({ query: HERO_QUERY });
+  
+  return <HeroClient data={data} />;
+}

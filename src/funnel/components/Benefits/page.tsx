@@ -1,5 +1,12 @@
-import Services from "./index";
+import { sanityFetch } from "@/sanity/lib/live";
+import { BENEFITS_QUERY } from "@/sanity/lib/queries";
+import Benefits from "./index";
 
-export default function Page() {
-  return <Services />;
+interface BenefitsPageProps {
+  id?: string;
+}
+
+export default async function BenefitsPage({ id }: BenefitsPageProps) {
+    const { data } = await sanityFetch({ query: BENEFITS_QUERY });
+    return <Benefits data={data as any} id={id} />;
 }

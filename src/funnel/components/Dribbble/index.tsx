@@ -105,11 +105,24 @@ const DribbleCard: React.FC<{
   );
 };
 
-export const Dribble: React.FC<DribbleProps> = ({
+import { WORKS_QUERYResult } from "@/sanity.types";
+import { urlFor } from "@/sanity/lib/image";
+
+// Define types locally if not available from generated types yet
+type WorkItem = any; // Placeholder
+type WorkSection = {
+  heading?: string;
+  description?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+};
+
+export const Dribble: React.FC<DribbleProps & { data?: { section?: WorkSection; items?: WorkItem[] } }> = ({
   items = defaultItems,
-  heading = "Our Creative Showcase",
-  ctaText = "Explore Visuals",
-  ctaHref = "https://dribbble.com/PicassoFusion",
+  data,
+  heading: defaultHeading = "Our Creative Showcase",
+  ctaText: defaultCtaText = "Explore Visuals",
+  ctaHref: defaultCtaHref = "https://dribbble.com/PicassoFusion",
   autoScrollSpeed = 80,
   className = "",
 }) => {
@@ -119,8 +132,30 @@ export const Dribble: React.FC<DribbleProps> = ({
   const animationFrameRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number | null>(null);
 
-  const totalItems = items.length;
-  const extendedItems = [...items, ...items];
+  const { section, items: fetchedItems } = data || {};
+
+  const heading = section?.heading || defaultHeading;
+  const description = section?.description || "See how we transform imagination into visuals through design and creativity.";
+  const ctaText = section?.ctaText || defaultCtaText;
+  const ctaHref = section?.ctaUrl || defaultCtaHref;
+
+  // Map Sanity data to DribbleItem if available
+  const mappedItems: DribbleItem[] = (fetchedItems && fetchedItems.length > 0) ? fetchedItems.map((work: any) => {
+     // @ts-ignore
+     const videoUrl = work.video?.asset?.url;
+     return {
+        id: work._id,
+        type: (work.video ? "video" : "image") as "video" | "image",
+        src: videoUrl || (work.mainImage ? urlFor(work.mainImage).url() : ""),
+        poster: work.mainImage ? urlFor(work.mainImage).url() : undefined,
+        title: work.title || "",
+        description: work.description || "",
+        hasContent: true
+     };
+  }).filter((item: any) => item.src !== "") : items;
+
+  const totalItems = mappedItems.length;
+  const extendedItems = totalItems > 0 ? [...mappedItems, ...mappedItems] : [];
 
   const cardWidth = 300;
   const gapPx = 15;
@@ -199,7 +234,7 @@ export const Dribble: React.FC<DribbleProps> = ({
           viewport={{ once: true }}
           className="text-[#6f80a8] text-lg leading-7 max-w-3xl mx-auto mb-6"
         >
-          See how we transform imagination into visuals through design and creativity.
+          {description}
         </motion.p>
       </div>
 

@@ -8,23 +8,59 @@ import { fetchPricingPlans, PricingPlan } from "./data";
 import styles from "./style.module.css";
 import { getCalApi } from "@calcom/embed-react";
 
+import { PRICING_QUERYResult } from "@/sanity.types";
+
 interface PricingSectionProps {
   variant?: "default" | "compare";
+  data?: PRICING_QUERYResult;
 }
 
-export default function PricingSection({ variant = "default" }: PricingSectionProps) {
+export default function PricingSection({ variant = "default", data }: PricingSectionProps) {
   const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedCards, setExpandedCards] = useState<number[]>([]);
 
+  const { heading, subtitle, plans: sanityPlans } = data || {};
+
   useEffect(() => {
     async function loadPlans() {
-      const plans = await fetchPricingPlans();
-      setPricingPlans(plans);
-      setLoading(false);
+      if (sanityPlans && sanityPlans.length > 0) {
+        // Use plans from Sanity if available
+        // Need to map Sanity plan shape to component PricingPlan shape
+        const mappedPlans = sanityPlans.map((p: any) => {
+             // Transform Sanity array-based subFeatures back to object map for component
+             const subFeaturesMap: any = {};
+             if (p.subFeatures && Array.isArray(p.subFeatures)) {
+                 p.subFeatures.forEach((cat: any) => {
+                     const features: any = {};
+                     if (cat.features && Array.isArray(cat.features)) {
+                         cat.features.forEach((f: any) => {
+                             // parse "true"/"false" strings back to boolean if needed, though component handles string
+                             features[f.label] = f.value === "true" ? true : f.value === "false" ? false : f.value;
+                         });
+                     }
+                     subFeaturesMap[cat.name] = features;
+                 });
+             }
+
+             return {
+                ...p,
+                // Ensure defaults for potentially missing fields
+                features: p.features || [],
+                subFeatures: subFeaturesMap
+             };
+        });
+        setPricingPlans(mappedPlans);
+        setLoading(false);
+      } else {
+        // Fallback to fetching from API
+        const plans = await fetchPricingPlans();
+        setPricingPlans(plans);
+        setLoading(false);
+      }
     }
     loadPlans();
-  }, []);
+  }, [sanityPlans]);
 
   useEffect(() => {
     (async function () {
@@ -45,7 +81,7 @@ export default function PricingSection({ variant = "default" }: PricingSectionPr
   }, []);
 
   const headerTitle =
-    variant === "compare" ? "Compare & Choose Your Plan" : "Transparent Pricing";
+    variant === "compare" ? "Compare & Choose Your Plan" : (heading || "Transparent Pricing"); // Use Sanity heading
 
   return (
     <section id="pricing" className={styles.pricingSection}>
@@ -63,6 +99,7 @@ export default function PricingSection({ variant = "default" }: PricingSectionPr
           viewport={{ once: true }}
           className={styles.pricingTitle}
         >
+          {/* Custom rendering based on if it matches default strict patterns, otherwise just the string */}
           {headerTitle.includes("Compare") ? (
             <div>
               Compare & Choose{" "}
@@ -71,14 +108,17 @@ export default function PricingSection({ variant = "default" }: PricingSectionPr
                Your Plan
               </span>
             </div>
-          ) : (
-            <div>
+          ) : headerTitle === "Flexible Plans Tailored to Your Needs" ? (
+             <div>
               Flexible Plans Tailored to{" "}
               <span className={styles.titleSerif}>
                 <br />
                 Your Needs
               </span>
             </div>
+          ) : (
+            // Render plain heading from Sanity if customized
+            <span className={styles.titleSerif}>{headerTitle}</span>
           )}
         </motion.h2>
 
@@ -89,9 +129,13 @@ export default function PricingSection({ variant = "default" }: PricingSectionPr
           viewport={{ once: true }}
           className={styles.pricingSubtitle}
         >
-          Find the plan that fits your needs best with no surprises and
-          <br className={styles.subtitleBreak} />
-          No hidden fees.
+          {subtitle ? subtitle : (
+            <>
+            Find the plan that fits your needs best with no surprises and
+            <br className={styles.subtitleBreak} />
+            No hidden fees.
+            </>
+          )}
         </motion.p>
       </motion.div>
 

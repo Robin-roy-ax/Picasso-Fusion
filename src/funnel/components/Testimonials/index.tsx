@@ -2,15 +2,13 @@
 
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState, useCallback } from "react";
 import {
   TESTIMONIALS_DATA,
   TESTIMONIALS_TEXT,
   TESTIMONIALS_ANIMATIONS,
-  Testimonial
 } from "./data";
 import styles from "./style.module.css";
-import { client } from "@/sanity/lib/client";
+import { TESTIMONIALS_QUERYResult } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 
 const cardVariants: Variants = {
@@ -29,40 +27,17 @@ const cardVariants: Variants = {
   }),
 };
 
-export default function Testimonials() {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>(TESTIMONIALS_DATA);
-  const [isFetching, setIsFetching] = useState(false);
+interface TestimonialsProps {
+  data?: TESTIMONIALS_QUERYResult;
+}
 
-  const fetchTestimonials = useCallback(async () => {
-    if (isFetching) return; // Prevent duplicate fetches
-    
-    setIsFetching(true);
-    const query = `*[_type == "testimonial"]{
-      quote,
-      name,
-      title,
-      image
-    }`;
-    try {
-      const data = await client.fetch(query);
-      if (data && data.length > 0) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const mappedData = data.map((item: any) => ({
-          ...item,
-          image: item.image ? urlFor(item.image).url() : "",
-        }));
-        setTestimonials(mappedData);
-      }
-    } catch (error) {
-      console.error("Failed to fetch testimonials:", error);
-    } finally {
-      setIsFetching(false);
-    }
-  }, [isFetching]);
-
-  useEffect(() => {
-    fetchTestimonials();
-  }, [fetchTestimonials]);
+export default function Testimonials({ data }: TestimonialsProps) {
+  const testimonials = data && data.length > 0 ? data.map(item => ({
+    name: item.name || "Anonymous",
+    title: item.title || "",
+    quote: item.quote || "",
+    image: item.image ? urlFor(item.image).url() : "",
+  })) : TESTIMONIALS_DATA;
 
   return (
     <section id="testimonials" className={styles.testimonialsSection}>
@@ -121,7 +96,7 @@ export default function Testimonials() {
                   <div className={styles.testimonialImageContainer}>
                     {testimonial.image && (
                       <Image
-                        src={testimonial.image}
+                        src={testimonial.image as any}
                         alt={testimonial.name}
                         fill
                         className={styles.testimonialImage}
