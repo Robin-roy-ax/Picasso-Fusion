@@ -115,8 +115,7 @@ export default async function RootLayout({
     footerData = results[1].data;
     faqData = results[2].data;
   } catch (error) {
-    console.error("Error fetching Sanity data:", error);
-   
+    console.warn("Error fetching Sanity data:", error);
   }
 
   return (

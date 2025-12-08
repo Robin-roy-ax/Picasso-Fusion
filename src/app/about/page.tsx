@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+export const dynamic = "force-dynamic";
 import AboutUs from "@/funnel/components/AboutUS/page";
 
 export const metadata: Metadata = {

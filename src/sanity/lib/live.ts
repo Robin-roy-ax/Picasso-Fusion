@@ -15,7 +15,7 @@ export const sanityFetch = async (args: Parameters<typeof originalSanityFetch>[0
   try {
     return await originalSanityFetch(args);
   } catch (error) {
-    console.error("Error fetching Sanity data:", error);
+    console.warn("Error fetching Sanity data (returning null to prevent build failure):", error);
     return { data: null };
   }
 };

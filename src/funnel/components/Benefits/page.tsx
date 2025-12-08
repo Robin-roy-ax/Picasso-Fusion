@@ -1,4 +1,5 @@
 import { sanityFetch } from "@/sanity/lib/live";
+export const dynamic = "force-dynamic";
 import { BENEFITS_QUERY } from "@/sanity/lib/queries";
 import Benefits from "./index";
 

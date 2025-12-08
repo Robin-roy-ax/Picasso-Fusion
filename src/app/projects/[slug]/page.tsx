@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 
 import Auluxe from "@/funnel/components/Work/Projects/Auluxe/page";
