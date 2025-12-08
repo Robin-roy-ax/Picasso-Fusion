@@ -69,7 +69,6 @@ export default function Navbar({ data }: NavbarProps) {
       setNavbarVisible(!shouldHide);
     };
 
-    // Throttle scroll handler to run at most every 100ms
     const throttledScroll = throttle(handleScroll, 100);
 
     window.addEventListener("scroll", throttledScroll, { passive: true });

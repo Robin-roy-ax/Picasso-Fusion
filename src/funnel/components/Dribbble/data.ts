@@ -14,8 +14,8 @@ export const defaultItems: DribbleItem[] = [
     type: "image",
     src: "/videos/1.jpg",
     poster: "/videos/1.jpg",
-    title: "lorel ipsum dolor sit amet",
-    description: "lorel ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    title: "Luxury Fashion Campaign",
+    description: "High-end editorial photography showcasing the new summer collection.",
     hasContent: true,
   },
   {

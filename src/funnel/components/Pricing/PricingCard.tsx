@@ -1,11 +1,11 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, X, ChevronDown } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { SubFeatures } from "./data";
 import GlassToggleButton from "../common/GlassToogleButton";
 
-import Link from "next/link";
+
 import GlassCTAButton from "../common/GlassCTAButton";
 
 type PricingCardProps = {
@@ -21,7 +21,6 @@ type PricingCardProps = {
   secondaryButton: string;
   highlight?: boolean;
   badge?: string;
-  // New props for controlled expansion
   isExpanded: boolean;
   onToggleExpand: () => void;
 };

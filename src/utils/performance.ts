@@ -1,12 +1,3 @@
-/**
- * Performance utility functions for optimizing event handlers
- */
-
-/**
- * Throttles a function to only execute once per specified delay
- * @param func - Function to throttle
- * @param delay - Minimum delay between executions in milliseconds
- */
 export function throttle<T extends (...args: unknown[]) => unknown>(
     func: T,
     delay: number
@@ -31,11 +22,6 @@ export function throttle<T extends (...args: unknown[]) => unknown>(
     };
 }
 
-/**
- * Debounces a function to only execute after a specified delay of inactivity
- * @param func - Function to debounce
- * @param delay - Delay in milliseconds
- */
 export function debounce<T extends (...args: unknown[]) => unknown>(
     func: T,
     delay: number
@@ -51,14 +37,14 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
     };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export function rafThrottle<T extends (...args: any[]) => any>(
     func: T
 ): (...args: Parameters<T>) => void {
     let rafId: number | null = null;
     let latestArgs: Parameters<T> | null = null;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     return function (this: any, ...args: Parameters<T>) {
         latestArgs = args;
 

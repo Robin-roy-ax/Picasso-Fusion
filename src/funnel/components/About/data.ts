@@ -12,7 +12,7 @@ export const ABOUT_TEXT = {
 
 export const ABOUT_BUTTON_TEXT = "Discover more about us";
 
-// Animation configurations
+
 export const ABOUT_ANIMATIONS = {
   textBlock: {
     duration: 1,
@@ -27,7 +27,7 @@ export const ABOUT_ANIMATIONS = {
   }
 };
 
-// Gradient colors used in the text spans
+
 export const GRADIENT_COLORS = {
   gray400: "from-gray-400 via-gray-400 to-gray-400"
 };

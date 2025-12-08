@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useCursor } from "@/funnel/components/common/CursorContext";
 import { rafThrottle } from "@/utils/performance";
 

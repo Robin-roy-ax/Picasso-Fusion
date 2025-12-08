@@ -45,7 +45,7 @@ export default function GradualBlur({
 
     handleScroll();
     
-    // Throttle scroll and resize handlers
+
     const throttledScroll = throttle(handleScroll, 100);
     
     window.addEventListener("scroll", throttledScroll, { passive: true });
