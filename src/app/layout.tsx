@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
+import { draftMode } from "next/headers";
+import { VisualEditing } from "next-sanity";
+import { SanityLive } from "@/sanity/lib/live";
 import "./globals.css";
 import CustomCursor from "@/funnel/components/common/CustomCursor";
 import { CursorProvider } from "@/funnel/components/common/CursorContext";
 import ScrollRestoration from "@/funnel/components/common/ScrollRestoration";
-import { DraftModeProvider } from "@/components/DraftModeProvider";
-import { draftMode } from "next/headers";
 import ConditionalLayout from "@/components/ConditionalLayout";
-import { VisualEditing } from "next-sanity/visual-editing";
-import { client } from "@/sanity/lib/client";
-import { SanityProvider } from "@/components/SanityProvider";
 
 const interSans = Inter({
   variable: "--font-inter-sans",
@@ -96,36 +94,56 @@ const jsonLd = {
   description: "Picasso Fusion is a platform that allows users to create their own digital art.",
 };
 
+import { sanityFetch } from "@/sanity/lib/live";
+import { NAVBAR_QUERY, FOOTER_QUERY, FAQ_LIST_QUERY } from "@/sanity/lib/queries";
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isEnabled } = await draftMode();
+
+  let navbarData, footerData, faqData;
+
+  try {
+    const results = await Promise.all([
+      sanityFetch({ query: NAVBAR_QUERY }),
+      sanityFetch({ query: FOOTER_QUERY }),
+      sanityFetch({ query: FAQ_LIST_QUERY })
+    ]);
+    navbarData = results[0].data;
+    footerData = results[1].data;
+    faqData = results[2].data;
+  } catch (error) {
+    console.error("Error fetching Sanity data:", error);
+   
+  }
 
   return (
     <html lang="en">
       <body
         className={`${interSans.variable} ${instrumentSerif.variable} font-sans antialiased`}>
-        <SanityProvider isPreview={isEnabled}>
-          <ScrollRestoration />
+        <ScrollRestoration />
           <CursorProvider>
             <CustomCursor />
-            <ConditionalLayout>
+            <ConditionalLayout 
+              navbarData={navbarData}
+              footerData={footerData}
+              faqData={faqData}
+            >
               {children}
             </ConditionalLayout>
           </CursorProvider>
-          {isEnabled && (
-            <>
-              <DraftModeProvider />
-              <VisualEditing />
-            </>
-          )}
-        </SanityProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {(await draftMode()).isEnabled && (
+          <>
+            <VisualEditing />
+            <SanityLive />
+          </>
+        )}
       </body>
     </html>
   );

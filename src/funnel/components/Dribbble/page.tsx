@@ -1,9 +1,13 @@
+import { sanityFetch } from "@/sanity/lib/live";
+import { WORKS_QUERY } from "@/sanity/lib/queries";
 import Dribbble from "./index";
 
-export default function DribbblePage() {
+export default async function DribbblePage() {
+  const { data } = await sanityFetch({ query: WORKS_QUERY });
+
   return (
     <main className="min-h-screen bg-white">
-      <Dribbble/>
+      <Dribbble data={data as any} />
     </main>
   );
 }

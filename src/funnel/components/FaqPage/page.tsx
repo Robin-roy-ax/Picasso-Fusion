@@ -1,6 +1,8 @@
-// app/faq/page.tsx
+import { sanityFetch } from "@/sanity/lib/live";
+import { FAQ_LIST_QUERY } from "@/sanity/lib/queries";
 import FaqPage from "@/funnel/components/FaqPage/index";
 
-export default function FAQPage() {
-  return <FaqPage />;
+export default async function FAQPage() {
+  const { data } = await sanityFetch({ query: FAQ_LIST_QUERY });
+  return <FaqPage data={data as any} />;
 }

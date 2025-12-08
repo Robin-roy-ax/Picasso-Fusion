@@ -1,20 +1,35 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MENU_ITEMS, CTA_BUTTON_TEXT, LOGO_IMAGE } from "./data";
+import { MENU_ITEMS as defaultMenuItems, CTA_BUTTON_TEXT, LOGO_IMAGE } from "./data";
 import styles from "./style.module.css";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { throttle } from "@/utils/performance";
+import { NAVBAR_QUERYResult } from "@/sanity.types";
+import { urlFor } from "@/sanity/lib/image";
 
-export default function Navbar() {
+interface NavbarProps {
+  data?: NAVBAR_QUERYResult;
+}
+
+export default function Navbar({ data }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [inHero, setInHero] = useState(true);
   const [navbarVisible, setNavbarVisible] = useState(true);
   const pathname = usePathname();
-  const isProjectPage = pathname.startsWith("/projects/");
+  const isProjectPage = pathname?.startsWith("/projects/");
+
+  const menuItems = data?.items?.map(item => ({
+    id: item.id || item.label || "",
+    label: item.label || "",
+    href: item.href || "/"
+  })) || defaultMenuItems;
+
+  const logoSrc = data?.logo?.image ? urlFor(data.logo.image).url() : LOGO_IMAGE;
+  const ctaText = data?.ctaText || CTA_BUTTON_TEXT;
 
   useEffect(() => {
     const isSectionPage = ["/benefits", "/process", "/testimonials", "/pricing", "/dribbble", "/"].includes(pathname);
@@ -107,11 +122,11 @@ export default function Navbar() {
           className={`${styles.logoSection} ${logoClass}`}
           scroll={pathname !== "/"}
         >
-          <Image src={LOGO_IMAGE} alt="Logo" width={100} height={100} />
+          <Image src={logoSrc} alt="Logo" width={100} height={100} className="object-contain" />
         </Link>
 
         <div className={styles.desktopMenu}>
-          {MENU_ITEMS.map((item) => (
+          {menuItems.map((item) => (
             <Link
               key={item.id}
               href={item.href}
@@ -139,7 +154,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className={desktopBtnClass}
             >
-              {CTA_BUTTON_TEXT}
+              {ctaText}
             </a>
           </div>
 
@@ -174,7 +189,7 @@ export default function Navbar() {
             <div className={styles.mobileMenuDivider} />
             
             <div className={styles.mobileMenuLinks}>
-              {MENU_ITEMS.map((item, index) => (
+              {menuItems.map((item, index) => (
                 <motion.div
                   key={item.id}
                   initial={{ opacity: 0, x: -10 }}
@@ -202,7 +217,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className={styles.mobileMenuCTA}
             >
-              {CTA_BUTTON_TEXT}
+              {ctaText}
             </motion.a>
           </motion.div>
         )}

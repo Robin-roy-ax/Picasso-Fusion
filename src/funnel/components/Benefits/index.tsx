@@ -2,15 +2,23 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { services } from "./data";
+import { services as defaultServices } from "./data";
 import styles from "./style.module.css";
-
+import { BENEFITS_QUERYResult } from "@/sanity.types";
+import { urlFor } from "@/sanity/lib/image";
 
 interface BenefitsProps {
   id?: string;
+  data?: BENEFITS_QUERYResult;
 }
 
-export default function Benefits({ id = "benefits" }: BenefitsProps) {
+export default function Benefits({ id = "benefits", data }: BenefitsProps) {
+  const services = data && data.length > 0 ? data.map(item => ({
+    title: item.title || "",
+    description: item.description || "",
+    image: item.image ? urlFor(item.image).url() : "",
+  })) : defaultServices;
+
   return (
     <section id={id} className={styles.section}>
       <div className={styles.container}>
@@ -58,17 +66,20 @@ export default function Benefits({ id = "benefits" }: BenefitsProps) {
               >
                 <div className={styles.overlay} />
 
-                <div
-                  className={styles.cardImage}
-
-                >
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    width={400}
-                    height={400}
-                    className="object-contain"
-                  />
+                <div className={styles.cardImage}>
+                  {service.image ? (
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      width={400}
+                      height={400}
+                      className="object-contain"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+                      No Image
+                    </div>
+                  )}
                 </div>
 
                 <motion.div

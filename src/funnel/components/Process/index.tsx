@@ -2,10 +2,39 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { benefits, Benefit } from "./data";
+import { benefits as defaultBenefits, Benefit } from "./data";
 import styles from "./style.module.css";
+import { PROCESS_QUERYResult } from "@/sanity.types";
+import { urlFor } from "@/sanity/lib/image";
 
-export default function Process() {
+interface ProcessProps {
+  data?: {
+      section?: {
+          heading?: string;
+          headingHighlight?: string;
+          subHeading?: string;
+          subHeadingHighlight?: string;
+          description?: string;
+      };
+      items?: any[];
+  };
+}
+
+export default function Process({ data }: ProcessProps) {
+  const { section, items: fetchedItems } = data || {};
+
+  const heading = section?.heading || "Smooth";
+  const headingHighlight = section?.headingHighlight || "Process,";
+  const subHeading = section?.subHeading || "Stunning";
+  const subHeadingHighlight = section?.subHeadingHighlight || "Outcomes";
+  const description = section?.description || "At Picasso Fusion, our refined process ensures efficiency, clarity, and exceptional results. From concept to final delivery, we guide you with transparency and precision, turning your vision into impactful, polished designs.";
+
+  const benefits = fetchedItems && fetchedItems.length > 0 ? fetchedItems.map(item => ({
+    title: item.title || "",
+    description: item.description || "",
+    image: item.image ? urlFor(item.image).url() : "",
+  })) : defaultBenefits;
+
   return (
     <section id="process" className={styles.section}>
       <motion.div
@@ -16,21 +45,18 @@ export default function Process() {
       >
         <div className={styles.header}>
           <h2 className={styles.title}>
-            Smooth<span>{" "}</span>
+            {heading}<span>{" "}</span>
             <span className="italic font-[400] font-[Instrument_Serif]">
-              Process,
+              {headingHighlight}
             </span>
             <br />
-            Stunning{" "}
+            {subHeading}{" "}
             <span className="italic font-[400] font-[Instrument_Serif]">
-              Outcomes
+              {subHeadingHighlight}
             </span>
           </h2>
           <p className={styles.description}>
-            At Picasso Fusion, our refined process ensures efficiency, clarity,
-            and exceptional results. From concept to final delivery, we guide
-            you with transparency and precision, turning your vision into
-            impactful, polished designs.
+            {description}
           </p>
         </div>
 
@@ -84,13 +110,19 @@ function BenefitCard({
       <div
         className={styles.imageWrapper}
       >
-        <Image
-          src={benefit.image}
-          alt={benefit.title}
-          width={300}
-          height={300}
-          className="object-contain transition-transform duration-700 group-hover:scale-110"
-        />
+        {benefit.image ? (
+          <Image
+            src={benefit.image}
+            alt={benefit.title}
+            width={300}
+            height={300}
+            className="object-contain transition-transform duration-700 group-hover:scale-110"
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+            No Image
+          </div>
+        )}
       </div>
 
       <motion.div

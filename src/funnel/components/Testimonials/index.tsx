@@ -2,23 +2,14 @@
 
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
-import { useQuery } from "@sanity/react-loader";
 import {
   TESTIMONIALS_DATA,
   TESTIMONIALS_TEXT,
   TESTIMONIALS_ANIMATIONS,
-  Testimonial
 } from "./data";
 import styles from "./style.module.css";
+import { TESTIMONIALS_QUERYResult } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
-
-const TESTIMONIALS_QUERY = `*[_type == "testimonial"]{
-  _id,
-  quote,
-  name,
-  title,
-  image
-}`;
 
 const cardVariants: Variants = {
   hidden: { 
@@ -36,18 +27,16 @@ const cardVariants: Variants = {
   }),
 };
 
-export default function Testimonials() {
-  // Use useQuery for visual editing support
-  const { data } = useQuery<Testimonial[]>(TESTIMONIALS_QUERY, {}, { initial: { data: TESTIMONIALS_DATA, sourceMap: undefined } });
-  
-  // Map Sanity data to component format
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const testimonials: Testimonial[] = data && Array.isArray(data) ? data.map((item: any) => ({
-    ...item,
-    // Handle both string URLs and Sanity image objects
-    image: item.image 
-      ? (typeof item.image === 'string' ? item.image : urlFor(item.image).url())
-      : "",
+interface TestimonialsProps {
+  data?: TESTIMONIALS_QUERYResult;
+}
+
+export default function Testimonials({ data }: TestimonialsProps) {
+  const testimonials = data && data.length > 0 ? data.map(item => ({
+    name: item.name || "Anonymous",
+    title: item.title || "",
+    quote: item.quote || "",
+    image: item.image ? urlFor(item.image).url() : "",
   })) : TESTIMONIALS_DATA;
 
   return (
@@ -107,7 +96,7 @@ export default function Testimonials() {
                   <div className={styles.testimonialImageContainer}>
                     {testimonial.image && (
                       <Image
-                        src={testimonial.image}
+                        src={testimonial.image as any}
                         alt={testimonial.name}
                         fill
                         className={styles.testimonialImage}

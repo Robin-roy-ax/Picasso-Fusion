@@ -2,11 +2,18 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ABOUT_TEXT, ABOUT_BUTTON_TEXT, ABOUT_ANIMATIONS } from "./data";
+import { ABOUT_ANIMATIONS, ABOUT_TEXT, ABOUT_BUTTON_TEXT } from "./data";
 import styles from "./style.module.css";
 import GlassCTAButton from "../common/GlassCTAButton";
+import { ABOUT_QUERYResult } from "@/sanity.types";
 
-export default function About() {
+interface AboutProps {
+  data?: ABOUT_QUERYResult;
+}
+
+export default function About({ data }: AboutProps) {
+  const { mainText = ABOUT_TEXT.main, buttonText = ABOUT_BUTTON_TEXT } = (data || {});
+
   return (
     <section className={styles.aboutSection}>
       <motion.div
@@ -16,19 +23,19 @@ export default function About() {
         transition={{ duration: ABOUT_ANIMATIONS.textBlock.duration }}
       >
         <h1 className={styles.aboutMainHeading}>
-          <span className={styles.aboutTextNormal}>{ABOUT_TEXT.main.part1}</span>{" "}
+          <span className={styles.aboutTextNormal}>{mainText?.part1}</span>{" "}
           <span className={`${styles.aboutTextNormal} ${styles.aboutTextGradient}`}>
-            {ABOUT_TEXT.main.part2}
+            {mainText?.part2}
           </span>{" "}
-          <span className={styles.aboutTextNormal}>{ABOUT_TEXT.main.part3}</span>{" "}
+          <span className={styles.aboutTextNormal}>{mainText?.part3}</span>{" "}
           <span className={`${styles.aboutTextNormal} ${styles.aboutTextGradient}`}>
-            {ABOUT_TEXT.main.part4}
+            {mainText?.part4}
           </span>{" "}
-          <span className={styles.aboutTextNormal}>{ABOUT_TEXT.main.part5}</span>{" "}
+          <span className={styles.aboutTextNormal}>{mainText?.part5}</span>{" "}
           <span className={`${styles.aboutTextNormal} ${styles.aboutTextGradient}`}>
-            {ABOUT_TEXT.main.part6}
+            {mainText?.part6}
           </span>{" "}
-          <span className={styles.aboutTextNormal}>{ABOUT_TEXT.main.part7}</span>
+          <span className={styles.aboutTextNormal}>{mainText?.part7}</span>
         </h1>
       </motion.div>
 
@@ -41,7 +48,7 @@ export default function About() {
         }}
       >
         <Link href="/about">
-          <GlassCTAButton asChild href="/about" text={ABOUT_BUTTON_TEXT} />
+          <GlassCTAButton asChild href="/about" text={buttonText || "Discover more about us"} />
         </Link>
       </motion.div>
     </section>
