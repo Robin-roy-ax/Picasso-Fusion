@@ -3,7 +3,7 @@ import { client } from "@/sanity/lib/client";
 
 const token = process.env.SANITY_API_WRITE_TOKEN;
 
-export const faqs = [
+const faqs = [
     {
         question: "What programs do you design in?",
         answer: "The duration varies depending on the scope and complexity of the project. We strive to deliver high-quality work within a reasonable timeframe, ensuring both efficiency and excellence.",
