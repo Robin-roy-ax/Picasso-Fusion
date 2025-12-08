@@ -19,6 +19,7 @@
     "@sanity/preview-url-secret": "^2.1.12",
     "@sanity/vision": "^3.99.0",
     "framer-motion": "^12.23.22",
+    "lightningcss": "^1.28.3",
     "lucide-react": "^0.545.0",
     "next": "15.5.2",
     "next-sanity": "^9.12.3",
