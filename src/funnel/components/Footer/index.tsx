@@ -214,7 +214,7 @@ export default function HomeSection({ data }: FooterProps) {
 
             <div className={styles.footerButton}>
               <Link
-                href="/#hero"
+                href="/"
                 className="bg-black hover:bg-[#3c3c3c] text-white w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 shadow-lg"
               >
                 <svg

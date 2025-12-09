@@ -11,11 +11,11 @@ export default function ScrollHandler({ targetId }: ScrollHandlerProps) {
     const scrollToSection = () => {
       const section = document.getElementById(targetId);
       if (section) {
-        const header = document.querySelector("header");
-        const headerHeight = header?.offsetHeight || 80;
+        const nav = document.querySelector("nav");
+        const navHeight = nav?.offsetHeight || 80;
         
         const elementPosition = section.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
 
         window.scrollTo({
           top: offsetPosition,

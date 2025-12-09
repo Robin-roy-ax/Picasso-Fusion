@@ -117,9 +117,17 @@ export default function Navbar({ data }: NavbarProps) {
       <div className={styles.navbarTop}>
         <Link
           href="/"
-          onClick={(e) => handleNavClick(e, "/")}
+          onClick={(e) => {
+            handleNavClick(e, "/");
+            // Always scroll to top when clicking logo
+            if (pathname !== "/") {
+              setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }, 100);
+            }
+          }}
           className={`${styles.logoSection} ${logoClass}`}
-          scroll={pathname !== "/"}
+          scroll={false}
         >
           <Image src={logoSrc} alt="Logo" width={100} height={100} className="object-contain" />
         </Link>

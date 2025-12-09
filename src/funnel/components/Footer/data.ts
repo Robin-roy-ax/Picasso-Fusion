@@ -1,6 +1,6 @@
 // components/Home/data.ts
 export const menuLinks = [
-  { label: "Home", href: "/#hero", id: "hero" },
+  { label: "Home", href: "/", id: "hero" },
   // { label: "Work", href: "/work", id: "work" },
   { label: "Works", href: "/dribbble", id: "dribbble" },
   { label: "Testimonials", href: "/testimonials", id: "testimonials" },

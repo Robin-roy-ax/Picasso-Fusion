@@ -212,7 +212,7 @@ export const Dribble: React.FC<DribbleProps & { data?: { section?: WorkSection; 
   }, []);
 
   return (
-    <section id="dribbble" className={`w-full bg-white ${className}`}>
+    <section id="dribbble" className={`w-full min-h-screen bg-white pb-[20rem] md:pb-40 lg:pb-48 xl:pb-56 ${className}`}>
       <div className="max-w-7xl mx-auto px-6 pt-12 md:pt-16 pb-2 md:pb-4 flex flex-col items-center text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
