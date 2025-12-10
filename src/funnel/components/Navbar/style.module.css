@@ -110,7 +110,12 @@
   transition: all 0.3s ease;
 }
 
-
+/* Add border line on desktop only (when hamburger menu is not active) */
+@media (min-width: 1351px) {
+  .logoSection {
+    border-right: 1px solid;
+  }
+}
 
 .logoSectionHero {
   border-color: rgba(255, 255, 255, 0.2);
