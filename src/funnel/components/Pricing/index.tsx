@@ -81,7 +81,7 @@ export default function PricingSection({ variant = "default", data }: PricingSec
   }, []);
 
   const headerTitle =
-    variant === "compare" ? "Compare & Choose Your Plan" : (heading || "Transparent Pricing"); // Use Sanity heading
+    variant === "compare" ? "Compare & Choose Your Plan" : (heading || "Flexible Plans Tailored to Your Needs"); // Use Sanity heading
 
   return (
     <section id="pricing" className={styles.pricingSection}>
