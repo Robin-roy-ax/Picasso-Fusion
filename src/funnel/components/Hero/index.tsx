@@ -1,8 +1,8 @@
 "use client";
+import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Instrument_Serif } from "next/font/google";
-import { useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { urlFor } from "@/sanity/lib/image";
 
@@ -27,7 +27,12 @@ interface HeroProps {
 }
 
 export default function Hero({ data }: HeroProps) {
-  useEffect(() => {
+  const [calLoaded, setCalLoaded] = React.useState(false);
+
+  const loadCalScript = React.useCallback(() => {
+    if (calLoaded) return;
+    setCalLoaded(true);
+    
     (async function () {
       const cal = await getCalApi({ namespace: "cal" });
       cal("ui", {
@@ -35,7 +40,7 @@ export default function Hero({ data }: HeroProps) {
         layout: "month_view",
       });
     })();
-  }, []);
+  }, [calLoaded]);
 
   const {
     subtitle = HERO_SUBTITLE,
@@ -150,22 +155,33 @@ export default function Hero({ data }: HeroProps) {
         className="flex flex-col sm:flex-row gap-4 mt-8"
       >
 
-        <motion.button
+        <motion.a
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: HERO_ANIMATIONS.button1.delay }}
           data-cal-link="robin-roy-ax/30min"
           data-cal-config='{"layout":"month_view"}'
-          className="relative px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-md cursor-pointer"
+          href="https://cal.com/robin-roy-ax/30min"
+          onClick={(e) => {
+            // Ensure Cal.com script is loaded before opening modal
+            if (calLoaded) {
+              e.preventDefault();
+            } else {
+              loadCalScript();
+            }
+          }}
+          onMouseEnter={loadCalScript}
+          onFocus={loadCalScript}
+          className="relative px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-md cursor-pointer text-center"
         >
           {buttons?.primary}
-        </motion.button>
+        </motion.a>
 
         <motion.a
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: HERO_ANIMATIONS.button2.delay }}
-          href="#pricing"
+          href="/pricing"
           className={styles.heroButtonSecondary}
         >
           {buttons?.secondary}
