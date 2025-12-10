@@ -1,10 +1,11 @@
 "use client";
 
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X } from "lucide-react";
 import { SubFeatures } from "./data";
 import GlassToggleButton from "../common/GlassToogleButton";
-
+import { getCalApi } from "@calcom/embed-react";
 
 import GlassCTAButton from "../common/GlassCTAButton";
 
@@ -41,6 +42,21 @@ export default function PricingCard({
   isExpanded,
   onToggleExpand,
 }: PricingCardProps) {
+  const [calLoaded, setCalLoaded] = React.useState(false);
+
+  const loadCalScript = React.useCallback(() => {
+    if (calLoaded) return;
+    setCalLoaded(true);
+    
+    (async function () {
+      const cal = await getCalApi({ namespace: "cal" });
+      cal("ui", {
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    })();
+  }, [calLoaded]);
+
   const hasSubFeatures = Object.keys(subFeatures).length > 0;
   
   return (
@@ -102,6 +118,17 @@ export default function PricingCard({
         <a
           data-cal-link="robin-roy-ax/30min"
           data-cal-config='{"layout":"month_view"}'
+          href="https://cal.com/robin-roy-ax/30min"
+          onClick={(e) => {
+            // Ensure Cal.com script is loaded before opening modal
+            if (calLoaded) {
+              e.preventDefault();
+            } else {
+              loadCalScript();
+            }
+          }}
+          onMouseEnter={loadCalScript}
+          onFocus={loadCalScript}
           target="_blank"
           rel="noopener noreferrer"
           className={`mt-3 w-full py-2 text-sm underline underline-offset-4 transition sm:text-base cursor-pointer block text-center
