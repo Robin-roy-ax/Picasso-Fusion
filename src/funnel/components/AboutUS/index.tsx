@@ -52,53 +52,63 @@ interface AboutUsProps {
 }
 
 export default function AboutUs({ data }: AboutUsProps) {
-  const content = data?.hero ? {
-      hero: {
-          title: data.hero.title || "Innovate,",
-          titleHighlight: data.hero.titleHighlight || "Elevate & Design.",
-          description: data.hero.description || "Unlock your creative potential with us, offering limitless possibilities to transform your concepts into stunning realities."
-      },
-      heroImage: data.hero.heroImage ? urlFor(data.hero.heroImage).url() : "https://framerusercontent.com/images/IjRP7RIug6UNzqeHbNO5WxD3FDk.jpg",
-      overview: {
-          text: data.overview?.text || "Picasso Fusion delivers high quality, personalized designs through a simple credit based system. Our team turns your ideas into impactful visuals across every design need. Fast, flexible, and seamless in elevating your brand with ease."
-      },
-      sections: data.sections || [],
-      stats: data.stats || [],
-      team: {
-          title: data.team?.title || "Meet Our",
-          titleHighlight: data.team?.titleHighlight || "Team",
-          description: data.team?.description || "Discover the Exceptional Talent Shaping Picasso Fusion's Innovative Solutions and Remarkable Achievements",
-          members: data.team?.members || []
+  // Helper function to safely get image URL from Sanity image reference
+  const getSafeImageUrl = (image: any, fallback: string = ""): string => {
+    if (!image) return fallback;
+    
+    try {
+      // Check if image has valid asset reference structure
+      if (image.asset && image.asset._ref) {
+        return urlFor(image).url();
       }
-  } : null;
-
-    if (!content) {
-        // Fallback to existing layout if maps fail, or just use hardcoded mapped structure above
-        // For simplicity, we are mapping "content" to match the shape expected by sub-components or updating sub-components interactively.
-        // Actually, let's update sub-components to take props directly.
+      return fallback;
+    } catch (error) {
+      console.warn("Failed to process Sanity image:", error);
+      return fallback;
     }
+  };
+
+  // Default hardcoded sections
+  const defaultSections = [
+    { title: content.mission.title, description: content.mission.description },
+    { title: content.approach.title, description: content.approach.description },
+    { title: content.pioneer.title, description: content.pioneer.description }
+  ];
+
+  // Always use hardcoded defaults first, with Sanity data as overrides
+  const pageContent = {
+      hero: {
+          title: data?.hero?.title || content.hero.title,
+          titleHighlight: data?.hero?.titleHighlight || content.hero.titleHighlight,
+          description: data?.hero?.description || content.hero.description
+      },
+      heroImage: getSafeImageUrl(data?.hero?.heroImage, content.heroImage),
+      overview: {
+          text: data?.overview?.text || content.overview.text
+      },
+      sections: data?.sections && data.sections.length > 0 ? data.sections : defaultSections,
+      stats: data?.stats && data.stats.length > 0 ? data.stats : stats,
+      team: {
+          title: data?.team?.title || content.team.title,
+          titleHighlight: data?.team?.titleHighlight || content.team.titleHighlight,
+          description: data?.team?.description || content.team.description,
+          members: data?.team?.members && data.team.members.length > 0 ? data.team.members : teamMembers
+      }
+  };
 
   return (
     <section id="about" className={styles.section}>
-      <HeroSection heroData={content?.hero} />
-      <HeroImage imageUrl={content?.heroImage} />
-      <OverviewSection text={content?.overview.text} />
+      <HeroSection heroData={pageContent.hero} />
+      <HeroImage imageUrl={pageContent.heroImage} />
+      <OverviewSection text={pageContent.overview.text} />
       
-      {/* Dynamic Sections mapped from Sanity */}
-      {content?.sections && content.sections.length > 0 ? (
-          content.sections.map((sec, idx) => (
-             <SectionRow key={idx} title={sec.title || ""} description={sec.description || ""} />
-          ))
-      ) : (
-          <>
-            <SectionRow title="Top-Notch Equipment" description="We leverage cutting-edge tools and technology..." />
-            <SectionRow title="Dedicated Team" description="Our team of skilled professionals..." />
-            <SectionRow title="Pioneering the Path in Design" description="We are at the forefront of design trends..." />
-          </>
-      )}
+      {/* Dynamic Sections mapped from Sanity or hardcoded defaults */}
+      {pageContent.sections.map((sec: any, idx: number) => (
+        <SectionRow key={idx} title={sec.title || ""} description={sec.description || ""} />
+      ))}
 
-      <NumbersSection stats={content?.stats} />
-      <TeamSection team={content?.team} />
+      <NumbersSection stats={pageContent.stats} />
+      <TeamSection team={pageContent.team} />
     </section>
   );
 }
@@ -252,11 +262,27 @@ function TeamSection({ team }: { team?: any }) {
 }
 
 function TeamGrid({ members }: { members: any[] }) {
+  // Helper function to safely get image URL from Sanity image reference
+  const getSafeImageUrl = (image: any): string => {
+    if (!image) return "";
+    
+    try {
+      // Check if image has valid asset reference structure
+      if (image.asset && image.asset._ref) {
+        return urlFor(image).url();
+      }
+      return "";
+    } catch (error) {
+      console.warn("Failed to process Sanity image:", error);
+      return "";
+    }
+  };
+
   const displayMembers = members && members.length > 0 ? members.map((m:any) => ({
       name: m.name,
       role: m.role,
       description: m.description,
-      image: m.image ? urlFor(m.image).url() : ""
+      image: getSafeImageUrl(m.image)
   })) : teamMembers;
 
   return (
@@ -281,13 +307,17 @@ function TeamCard({ member }: TeamCardProps) {
   return (
     <div className={styles.teamCard}>
       <div className={styles.teamCardImageWrapper}>
-        <Image
-          src={member.image}
-          alt={member.name}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className={styles.teamCardImage}
-        />
+        {member.image ? (
+          <Image
+            src={member.image}
+            alt={member.name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className={styles.teamCardImage}
+          />
+        ) : (
+          <div className={styles.teamCardImage} style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }} />
+        )}
         <div className={styles.teamCardGradient}></div>
       </div>
 
