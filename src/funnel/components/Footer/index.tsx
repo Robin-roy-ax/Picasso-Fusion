@@ -201,6 +201,7 @@ export default function HomeSection({ data }: FooterProps) {
                     <Link
                       href={link.href}
                       className="text-[#8592b1] hover:text-[#bababaed] transition-all duration-200 text-[16px]"
+                      prefetch={true}
                     >
                       {link.label}
                     </Link>
@@ -219,6 +220,7 @@ export default function HomeSection({ data }: FooterProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#8592b1] hover:text-[#bababaed] transition-all duration-200 text-[16px]"
+                      prefetch={true}
                     >
                       {social.label}
                     </Link>
@@ -231,6 +233,7 @@ export default function HomeSection({ data }: FooterProps) {
               <Link
                 href="/"
                 className="bg-black hover:bg-[#3c3c3c] text-white w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 shadow-lg"
+                prefetch={true}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Instrument_Serif } from "next/font/google";
 import { getCalApi } from "@calcom/embed-react";
 import { urlFor } from "@/sanity/lib/image";
+import { useRouteTransition, useReducedMotion } from "@/hooks/useRouteTransition";
 
 import {
   HERO_ANIMATIONS,
@@ -28,6 +29,11 @@ interface HeroProps {
 
 export default function Hero({ data }: HeroProps) {
   const [calLoaded, setCalLoaded] = React.useState(false);
+  const isTransitioning = useRouteTransition();
+  const prefersReducedMotion = useReducedMotion();
+
+  // Skip or simplify animations during route transitions or if user prefers reduced motion
+  const shouldAnimate = !isTransitioning && !prefersReducedMotion;
 
   const loadCalScript = React.useCallback(() => {
     if (calLoaded) return;
@@ -66,9 +72,9 @@ export default function Hero({ data }: HeroProps) {
   return (
     <motion.section
       id="hero"
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: HERO_ANIMATIONS.container.duration }}
+      initial={shouldAnimate ? { opacity: 0 } : { opacity: 1 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: shouldAnimate ? HERO_ANIMATIONS.container.duration : 0.1 }}
       className={styles.heroSection}
     >
       <div className={styles.heroDividerLines}>
@@ -78,18 +84,18 @@ export default function Hero({ data }: HeroProps) {
       </div>
 
       <motion.p
-        initial={{ opacity: 0, y: 20 }}
+        initial={shouldAnimate ? { opacity: 0, y: 20 } : { opacity: 1 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: HERO_ANIMATIONS.subtitle.duration }}
+        transition={{ duration: shouldAnimate ? HERO_ANIMATIONS.subtitle.duration : 0 }}
         className={styles.heroSubtitle}
       >
         {subtitle}
       </motion.p>
 
       <motion.h1
-        initial={{ opacity: 0, y: 40 }}
+        initial={shouldAnimate ? { opacity: 0, y: 40 } : { opacity: 1 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: HERO_ANIMATIONS.mainHeading.duration }}
+        transition={{ duration: shouldAnimate ? HERO_ANIMATIONS.mainHeading.duration : 0 }}
         className={styles.heroMainHeading}
         style={{
           color: CSS_TOKENS.primaryColor,
@@ -137,11 +143,11 @@ export default function Hero({ data }: HeroProps) {
       </motion.h1>
 
       <motion.p
-        initial={{ opacity: 0 }}
+        initial={{ opacity: shouldAnimate ? 0 : 1 }}
         animate={{ opacity: 1 }}
         transition={{
-          duration: HERO_ANIMATIONS.description.duration,
-          delay: HERO_ANIMATIONS.description.delay,
+          duration: shouldAnimate ? HERO_ANIMATIONS.description.duration : 0,
+          delay: shouldAnimate ? HERO_ANIMATIONS.description.delay : 0,
         }}
         className={styles.heroDescription}
       >
@@ -149,16 +155,16 @@ export default function Hero({ data }: HeroProps) {
       </motion.p>
 
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
+        initial={shouldAnimate ? { opacity: 0, y: 40 } : { opacity: 1 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: HERO_ANIMATIONS.buttons.delay }}
+        transition={{ delay: shouldAnimate ? HERO_ANIMATIONS.buttons.delay : 0 }}
         className="flex flex-col sm:flex-row gap-4 mt-8"
       >
 
         <motion.a
-          initial={{ opacity: 0, y: 40 }}
+          initial={shouldAnimate ? { opacity: 0, y: 40 } : { opacity: 1 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: HERO_ANIMATIONS.button1.delay }}
+          transition={{ delay: shouldAnimate ? HERO_ANIMATIONS.button1.delay : 0 }}
           data-cal-link="robin-roy-ax/30min"
           data-cal-config='{"layout":"month_view"}'
           href="https://cal.com/robin-roy-ax/30min"
@@ -178,9 +184,9 @@ export default function Hero({ data }: HeroProps) {
         </motion.a>
 
         <motion.a
-          initial={{ opacity: 0, y: 40 }}
+          initial={shouldAnimate ? { opacity: 0, y: 40 } : { opacity: 1 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: HERO_ANIMATIONS.button2.delay }}
+          transition={{ delay: shouldAnimate ? HERO_ANIMATIONS.button2.delay : 0 }}
           href="/pricing"
           className={styles.heroButtonSecondary}
         >
@@ -189,9 +195,9 @@ export default function Hero({ data }: HeroProps) {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, x: -20 }}
+        initial={shouldAnimate ? { opacity: 0, x: -20 } : { opacity: 1 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: HERO_ANIMATIONS.avatars.delay }}
+        transition={{ delay: shouldAnimate ? HERO_ANIMATIONS.avatars.delay : 0 }}
         className="flex flex-col items-center mt-12"
       >
         <div className="flex -space-x-4 mb-2">
@@ -220,9 +226,9 @@ export default function Hero({ data }: HeroProps) {
         </div>
 
         <motion.p
-          initial={{ opacity: 0, x: 20 }}
+          initial={shouldAnimate ? { opacity: 0, x: 20 } : { opacity: 1 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: HERO_ANIMATIONS.avatarText.delay }}
+          transition={{ delay: shouldAnimate ? HERO_ANIMATIONS.avatarText.delay : 0 }}
           className="text-white font-medium"
         >
           {clientCount?.number}{" "}
@@ -231,9 +237,9 @@ export default function Hero({ data }: HeroProps) {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={shouldAnimate ? { opacity: 0, y: 20 } : { opacity: 1 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: HERO_ANIMATIONS.scrollText.delay }}
+        transition={{ delay: shouldAnimate ? HERO_ANIMATIONS.scrollText.delay : 0 }}
         className={`${styles.heroScrollText} ${styles.scrollPop} ${styles.scrollInvite}`}
       >
         <span className={styles.scrollInviteText}>{scrollText}</span>

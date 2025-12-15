@@ -141,6 +141,7 @@ export default function Navbar({ data }: NavbarProps) {
               style={{ color: menuColor }}
               onClick={(e) => handleNavClick(e, item.href, item.id)}
               scroll={item.href === "/about"}
+              prefetch={true}
             >
               {item.label}
             </Link>
@@ -208,6 +209,7 @@ export default function Navbar({ data }: NavbarProps) {
                     onClick={(e) => handleNavClick(e, item.href, item.id)}
                     className={styles.mobileMenuItem}
                     scroll={item.href === "/about"}
+                    prefetch={true}
                   >
                     {item.label}
                   </Link>

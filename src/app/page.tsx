@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
+import dynamicImport from "next/dynamic";
 import Hero from "@/funnel/components/Hero/page";
 import About from "@/funnel/components/About/page";
-import Testimonials from "@/funnel/components/Testimonials/page";
-import Pricing from "@/funnel/components/Pricing/page";
-import Dribbble from "@/funnel/components/Dribbble/page";
-import Process from "@/funnel/components/Process/page";
-import Benefits from "@/funnel/components/Benefits/page";
+
+// Lazy load below-fold components for better performance
+const Testimonials = dynamicImport(() => import("@/funnel/components/Testimonials/page"), { ssr: true });
+const Pricing = dynamicImport(() => import("@/funnel/components/Pricing/page"), { ssr: true });
+const Dribbble = dynamicImport(() => import("@/funnel/components/Dribbble/page"), { ssr: true });
+const Process = dynamicImport(() => import("@/funnel/components/Process/page"), { ssr: true });
+const Benefits = dynamicImport(() => import("@/funnel/components/Benefits/page"), { ssr: true });
 
 
 export const metadata: Metadata = {

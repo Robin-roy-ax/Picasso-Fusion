@@ -4,8 +4,6 @@ import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
 import { SanityLive } from "@/sanity/lib/live";
 import "./globals.css";
-import CustomCursor from "@/funnel/components/common/CustomCursor";
-import { CursorProvider } from "@/funnel/components/common/CursorContext";
 import ScrollRestoration from "@/funnel/components/common/ScrollRestoration";
 import ConditionalLayout from "@/components/ConditionalLayout";
 
@@ -138,8 +136,7 @@ export default async function RootLayout({
       <body
         className={`${interSans.variable} ${instrumentSerif.variable} font-sans antialiased`}>
         <ScrollRestoration />
-          <CursorProvider>
-            <CustomCursor />
+          
             <ConditionalLayout 
               navbarData={navbarData}
               footerData={footerData}
@@ -147,7 +144,6 @@ export default async function RootLayout({
             >
               {children}
             </ConditionalLayout>
-          </CursorProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

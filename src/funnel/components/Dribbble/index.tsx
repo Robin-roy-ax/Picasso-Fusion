@@ -20,7 +20,8 @@ interface DribbleProps {
 const DribbleCard: React.FC<{
   item: DribbleItem;
   index: number;
-}> = ({ item, index }) => {
+  onClick?: () => void;
+}> = ({ item, index, onClick }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldPlay, setShouldPlay] = useState(false);
 
@@ -57,6 +58,7 @@ const DribbleCard: React.FC<{
     <motion.div
       className={`${styles.card} relative flex-shrink-0 h-full rounded-xl overflow-hidden cursor-pointer group`}
       transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+      onClick={onClick}
     >
       <div className="relative w-full h-full bg-gray-100">
         {item.type === "video" ? (
@@ -105,6 +107,139 @@ const DribbleCard: React.FC<{
   );
 };
 
+const ExpandedCardModal: React.FC<{
+  item: DribbleItem;
+  onClose: () => void;
+}> = ({ item, onClose }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current && item.type === "video") {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [item.type]);
+
+  useEffect(() => {
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
+  return (
+    <motion.div
+      className={styles.modalOverlay}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      onClick={onClose}
+    >
+      {/* Gradual blur layers */}
+      <div className={styles.gradualBlurContainer}>
+        {[0.083, 0.166, 0.377, 0.749, 1.0].map((blurAmount, index) => (
+          <div
+            key={index}
+            className={styles.blurLayer}
+            style={{
+              backdropFilter: `blur(${blurAmount}rem)`,
+              WebkitBackdropFilter: `blur(${blurAmount}rem)`,
+            }}
+          />
+        ))}
+      </div>
+
+      <motion.div
+        className={styles.modalContent}
+        initial={{ scale: 0.5, opacity: 0, y: 100, rotateX: -15 }}
+        animate={{ scale: 1, opacity: 1, y: 0, rotateX: 0 }}
+        exit={{ scale: 0.8, opacity: 0, y: 50 }}
+        transition={{ 
+          duration: 0.5, 
+          ease: [0.34, 1.56, 0.64, 1],
+          opacity: { duration: 0.3 }
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          className={styles.closeButton}
+          onClick={onClose}
+          aria-label="Close"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+
+        <div className="relative w-full h-full bg-gray-100 rounded-xl overflow-hidden">
+          {item.type === "video" ? (
+            <video
+              ref={videoRef}
+              src={item.src}
+              poster={item.poster}
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-contain"
+            />
+          ) : (
+            <Image
+              src={item.src}
+              alt={item.title || "Dribble item"}
+              className="object-contain"
+              fill
+              sizes="90vw"
+              priority
+            />
+          )}
+        </div>
+
+        {item.hasContent && (
+          <motion.div 
+            className={styles.modalInfo}
+            initial={{ opacity: 0, y: 60, scale: 0.8, rotateX: 20 }}
+            animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+            transition={{ 
+              duration: 0.6, 
+              delay: 0.3,
+              ease: [0.34, 1.56, 0.64, 1],
+              opacity: { duration: 0.4, delay: 0.2 }
+            }}
+          >
+            <motion.h3 
+              className="text-2xl md:text-3xl font-bold mb-2"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              {item.title}
+            </motion.h3>
+            <motion.p 
+              className="text-white/90 text-base md:text-lg leading-relaxed"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              {item.description}
+            </motion.p>
+          </motion.div>
+        )}
+      </motion.div>
+    </motion.div>
+  );
+};
+
 import { WORKS_QUERYResult } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 
@@ -129,6 +264,7 @@ export const Dribble: React.FC<DribbleProps & { data?: { section?: WorkSection; 
   const trackRef = useRef<HTMLDivElement>(null);
   const [translateX, setTranslateX] = useState(0);
   const [isHoveringCarousel, setIsHoveringCarousel] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<DribbleItem | null>(null);
   const animationFrameRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number | null>(null);
 
@@ -250,7 +386,12 @@ export const Dribble: React.FC<DribbleProps & { data?: { section?: WorkSection; 
             style={{ transform: `translateX(${translateX}px)` }}
           >
             {extendedItems.map((item, index) => (
-              <DribbleCard key={`${item.id}-${index}`} item={item} index={index} />
+              <DribbleCard 
+                key={`${item.id}-${index}`} 
+                item={item} 
+                index={index}
+                onClick={() => setSelectedCard(item)}
+              />
             ))}
           </div>
         </div>
@@ -259,6 +400,13 @@ export const Dribble: React.FC<DribbleProps & { data?: { section?: WorkSection; 
       <div className="flex justify-center pt-10 pb-6">
         <GlassCTAButton href={ctaHref} text={ctaText} />
       </div>
+
+      {selectedCard && (
+        <ExpandedCardModal
+          item={selectedCard}
+          onClose={() => setSelectedCard(null)}
+        />
+      )}
     </section>
   );
 };

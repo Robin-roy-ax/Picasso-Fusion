@@ -1,14 +1,14 @@
 import Hero from "@/funnel/components/Hero/page";
-export const dynamic = "force-dynamic";
 import About from "@/funnel/components/About/page";
 import Dribbble from "@/funnel/components/Dribbble/page";
-
-import Testimonials from "@/funnel/components/Testimonials/page";
 import Benefits from "@/funnel/components/Benefits/page";
 import Process from "@/funnel/components/Process/page";
+import Testimonials from "@/funnel/components/Testimonials/page";
 import Pricing from "@/funnel/components/Pricing/index";
 import ScrollHandler from "@/components/ScrollHandler";
 import type { Metadata } from "next";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Pricing Plans - Flexible Design Subscriptions | Picasso Fusion",
