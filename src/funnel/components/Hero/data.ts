@@ -29,16 +29,16 @@ export const CLIENT_COUNT_TEXT = {
 export const SCROLL_DOWN_TEXT = "Scroll down to explore";
 
 export const HERO_ANIMATIONS = {
-  container: { duration: 1 },
-  subtitle: { duration: 0.7 },
-  mainHeading: { duration: 1 },
-  description: { duration: 1, delay: 0.3 },
-  buttons: { delay: 0.10 },
-  button1: { delay: 0.1 },
-  button2: { delay: 0.3 },
-  avatars: { delay: 0.6 },
-  avatarText: { delay: 0.8 },
-  scrollText: { delay: 1 }
+  container: { duration: 0.4 },
+  subtitle: { duration: 0.3 },
+  mainHeading: { duration: 0.5 },
+  description: { duration: 0.4, delay: 0.1 },
+  buttons: { delay: 0.05 },
+  button1: { delay: 0.05 },
+  button2: { delay: 0.15 },
+  avatars: { delay: 0.2 },
+  avatarText: { delay: 0.3 },
+  scrollText: { delay: 0.4 }
 };
 
 export const CSS_TOKENS = {

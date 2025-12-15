@@ -24,6 +24,8 @@ export default function ConditionalLayout({
     return <>{children}</>;
   }
 
+  // Render immediately even if data is undefined
+  // Components handle undefined data with fallbacks
   return (
     <>
       <Navbar data={navbarData} />

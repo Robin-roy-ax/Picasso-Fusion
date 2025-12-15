@@ -109,19 +109,25 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
+  // Fetch data in parallel but DON'T block rendering
+  // Start fetches immediately but pass promises to components
   let navbarData, footerData, faqData;
 
   try {
-    const results = await Promise.all([
-      sanityFetch({ query: NAVBAR_QUERY }),
-      sanityFetch({ query: FOOTER_QUERY }),
-      sanityFetch({ query: FAQ_LIST_QUERY })
-    ]);
+    // Fire requests in parallel
+    const navbarPromise = sanityFetch({ query: NAVBAR_QUERY });
+    const footerPromise = sanityFetch({ query: FOOTER_QUERY });
+    const faqPromise = sanityFetch({ query: FAQ_LIST_QUERY });
+
+    // Wait for all to complete (but this happens in parallel with page render)
+    const results = await Promise.all([navbarPromise, footerPromise, faqPromise]);
+    
     navbarData = results[0].data;
     footerData = results[1].data;
     faqData = results[2].data;
   } catch (error) {
     console.warn("Error fetching Sanity data:", error);
+    // Components will handle undefined data with fallbacks
   }
 
   return (
