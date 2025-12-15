@@ -1,7 +1,7 @@
 export const ABOUT_TEXT = {
   main: {
     part1: "Picasso Fusion",
-    part2: "is a creative powerhouse crafting meaningful visual experiences.",
+    part2: "is a creative powerhouse, crafting meaningful visual experiences.",
     part3: "We bring ideas to life through",
     part4: "branding, digital design, motion graphics,",
     part5: "and more.",

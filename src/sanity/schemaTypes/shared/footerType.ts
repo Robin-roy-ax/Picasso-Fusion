@@ -61,7 +61,7 @@ export const footerType = defineType({
             name: 'tagline',
             type: 'string',
             title: 'Botom Tagline',
-            initialValue: 'Our Design, Your Vision'
+            initialValue: 'Your Vision, Our Design.'
         })
     ]
 })

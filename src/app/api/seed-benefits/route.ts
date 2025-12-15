@@ -7,13 +7,13 @@ const token = process.env.SANITY_API_WRITE_TOKEN;
 const services = [
     {
         title: "Design Board",
-        description: "Add as many design requests as you want; we craft each with care, creativity, and stunning visuals, offering truly endless possibilities for you.",
+        description: "Add as many design requests as you want; we craft each one with care, creativity, and stunning visuals, offering truly endless possibilities for you.",
         imageFile: "Design Board.png",
     },
     {
         title: "Fixed Monthly Rate",
         description:
-            "No unexpected costs enjoy a consistent fixed monthly price that ensures transparency predictability and peace of mind for design always.",
+            "No unexpected costs enjoy a consistent, fixed monthly price that ensures transparency, predictability, and peace of mind for design, always.",
         imageFile: "Fixed Monthly Rate.png",
     },
     {
@@ -31,13 +31,13 @@ const services = [
     {
         title: "Flexible and Scalable",
         description:
-            "Always at your convenience you can pause or terminate the service anytime, giving you fully flexible and scalable design support whenever it suits your needs.",
+            "Access adaptable design support with the flexibility to pause or terminate the service at any time, aligned with changing operational demands.",
         imageFile: "Flexible and Scalable.png",
     },
     {
         title: "Tailored Just for You",
         description:
-            "Each design is custom crafted exclusively for you, created to match your vision perfectly, and delivered as work that belongs entirely to you.",
+            "Each design is thoughtfully crafted around your vision, elevated with precision, and delivered with complete ownership rights.",
         imageFile: "Tailored Just for You.png",
     },
 ];

@@ -22,7 +22,7 @@ export const AVATAR_IMAGES = [
 ];
 
 export const CLIENT_COUNT_TEXT = {
-  number: "1,000+",
+  number: "10+",
   description: "satisfied clients"
 };
 

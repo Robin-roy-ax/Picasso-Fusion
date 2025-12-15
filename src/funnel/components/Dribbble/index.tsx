@@ -70,39 +70,37 @@ const DribbleCard: React.FC<{
             muted
             playsInline
             preload={shouldPlay ? "auto" : "none"}
-            className={`w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110 ${styles.media}`}
+            className={`w-full h-full object-cover object-center ${styles.media}`}
           />
         ) : (
           <Image
             src={item.src}
             alt={item.title || "Dribble item"}
             loading={index < 6 ? "eager" : "lazy"}
-            className={`object-cover object-center transition-transform duration-700 group-hover:scale-110 ${styles.media}`}
+            className={`object-cover object-center ${styles.media}`}
             fill
             sizes="300px"
           />
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent transition-all duration-500 group-hover:from-black/80" />
-      </div>
+        {/* Base gradient - always visible */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent transition-all duration-500 group-hover:bg-slate-700/70" 
+          style={{ background: 'linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent)' }}
+        />
 
-      {item.hasContent && (
-        <>
-          <div className="absolute flex flex-col inset-0 bg-gradient-to-b from-transparent to-black opacity-0 transition-all duration-500 p-6 justify-end group-hover:opacity-100">
-            <motion.h3
-              className="text-xl font-bold mb-1"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.1 }}
-            >
+        {/* Title and Description overlay - shows on hover with backdrop blur */}
+        {item.hasContent && (
+          <div className="absolute inset-0 flex flex-col justify-center items-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-center" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(10px)' }}>
+            <h3 className="text-xl font-bold mb-2 text-white">
               {item.title}
-            </motion.h3>
+            </h3>
             <p className="text-white/90 text-base leading-relaxed">
               {item.description}
             </p>
           </div>
-        </>
-      )}
+        )}
+      </div>
     </motion.div>
   );
 };
@@ -347,6 +345,24 @@ export const Dribble: React.FC<DribbleProps & { data?: { section?: WorkSection; 
     setIsHoveringCarousel(false);
   }, []);
 
+  const scrollLeft = useCallback(() => {
+    setTranslateX((prev) => {
+      const newTranslate = prev + cardScrollWidth * 3; // Scroll 3 cards
+      return Math.min(newTranslate, 0); // Don't scroll past the beginning
+    });
+  }, [cardScrollWidth]);
+
+  const scrollRight = useCallback(() => {
+    setTranslateX((prev) => {
+      const newTranslate = prev - cardScrollWidth * 3; // Scroll 3 cards
+      const loopPoint = -singleSetWidth;
+      if (newTranslate < loopPoint) {
+        return newTranslate + singleSetWidth; // Loop back
+      }
+      return newTranslate;
+    });
+  }, [cardScrollWidth, singleSetWidth]);
+
   return (
     <section id="dribbble" className={`w-full min-h-screen bg-white pb-[20rem] md:pb-40 lg:pb-48 xl:pb-56 ${className}`}>
       <div className="max-w-7xl mx-auto px-6 pt-12 md:pt-16 pb-2 md:pb-4 flex flex-col items-center text-center">
@@ -379,6 +395,48 @@ export const Dribble: React.FC<DribbleProps & { data?: { section?: WorkSection; 
         onMouseEnter={handleCarouselMouseEnter}
         onMouseLeave={handleCarouselMouseLeave}
       >
+        {/* Left Navigation Button */}
+        <button
+          onClick={scrollLeft}
+          className={styles.navigationButton}
+          style={{ left: '20px', right: 'auto', top: '50%', transform: 'translateY(-50%)' }}
+          aria-label="Scroll left"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+
+        {/* Right Navigation Button */}
+        <button
+          onClick={scrollRight}
+          className={styles.navigationButton}
+          style={{ right: '20px', top: '50%', transform: 'translateY(-50%)' }}
+          aria-label="Scroll right"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+
         <div className="overflow-hidden h-full px-4">
           <div
             ref={trackRef}

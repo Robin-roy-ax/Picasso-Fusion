@@ -108,7 +108,6 @@ export default function AboutUs({ data }: AboutUsProps) {
       ))}
 
       <NumbersSection stats={pageContent.stats} />
-      <TeamSection team={pageContent.team} />
     </section>
   );
 }

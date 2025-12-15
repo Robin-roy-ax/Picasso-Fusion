@@ -234,10 +234,10 @@
 .statValue {
   font-size: 4.5rem;
   font-weight: 700;
-  background: linear-gradient(to bottom, rgb(0, 68, 255), white);
+  background: linear-gradient(to bottom, rgb(98, 98, 98), rgb(255, 255, 255));
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: transparent; 
 }
 
 .statLabel {

@@ -13,11 +13,9 @@ export interface Stat {
   }
   
   export const stats: Stat[] = [
-    { value: 100, suffix: "+", label: "Projects completed" },
-    { value: 12, suffix: "", label: "Industry awards" },
-    { value: 98, suffix: "%", label: "Client Satisfaction" },
-    { value: 125, suffix: "K", label: "ROI achieved for clients" },
-  ];
+  { value: 50, suffix: "+", label: "Projects Delivered" },
+  { value: 98, suffix: "%", label: "Client Satisfaction" },
+];
   
   export const teamMembers: TeamMember[] = [
     {

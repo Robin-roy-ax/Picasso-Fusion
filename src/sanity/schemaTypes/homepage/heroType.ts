@@ -52,7 +52,7 @@ export const heroType = defineType({
             name: 'clientCount',
             type: 'object',
             fields: [
-                { name: 'number', type: 'string', title: 'Count (e.g. 1000+)' },
+                { name: 'number', type: 'string', title: 'Count (e.g. 10+)' },
                 { name: 'description', type: 'string', title: 'Description' }
             ]
         }),

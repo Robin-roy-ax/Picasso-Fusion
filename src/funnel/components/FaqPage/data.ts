@@ -21,7 +21,7 @@ export const faqs = [
       "Yes, we believe in building long-term relationships with our clients. We offer post-project support to address any questions or issues that may arise, ensuring a seamless experience even after project completion.",
   },
   {
-    question: "Can I see examples of your previous work?",
+    question: "Can I see highlights of your previous work?",
     answer:
       "Certainly! We have a Dribble showcasing our past projects and client testimonials. Feel free to explore our Dribble to see the quality of our work and the level of satisfaction among our clients.",
   },

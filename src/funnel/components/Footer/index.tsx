@@ -57,7 +57,7 @@ export default function HomeSection({ data }: FooterProps) {
 
   const newsletterHeading = _newsletterHeading || "Subscribe to our newsletter";
   const copyrightText = _copyright || "© Picasso Fusion 2025. All rights reserved";
-  const tagline = _tagline || "Our Design, Your Vision";
+  const tagline = _tagline || "Your Vision, Our Design.";
 
   const menuLinks = _menuLinks?.map((link: any) => ({
     label: link.label || "",
