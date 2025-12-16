@@ -51,7 +51,7 @@
   /* Base mobile size */
   font-weight: 400;
   letter-spacing: -0.06em;
-  color: #2D3753;
+  color: #2d3753;
   line-height: 1.05em;
 }
 
@@ -95,8 +95,9 @@
 .testimonialsDescription {
   margin-top: 2rem;
   text-align: center;
-  color: #6F80A8;
-  font-size: 0.875rem;
+  color: #8592b1;
+  font-size: 1rem;
+  font-weight: 600;
   /* Base mobile size */
   line-height: 1.625;
   max-width: 42rem;
@@ -107,7 +108,7 @@
 
 @media (min-width: 768px) {
   .testimonialsDescription {
-    font-size: 1rem;
+    font-size: 1.125rem;
     padding: 0;
   }
 }

@@ -1,24 +1,23 @@
 /* components/FAQ/style.module.css */
 
 .section {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4rem 1.5rem 2rem 1.5rem;
+  padding: 4rem 1.5rem 1rem 1.5rem;
   background-color: #ffffff;
   color: #1e293b;
 }
 
 @media (min-width: 768px) {
   .section {
-    padding: 5rem 2rem 2.5rem 2rem;
+    padding: 5rem 2rem 1rem 2rem;
   }
 }
 
 @media (min-width: 1024px) {
   .section {
-    padding: 6rem 3rem 3rem 3rem;
+    padding: 6rem 3rem 1.5rem 3rem;
   }
 }
 
@@ -56,15 +55,16 @@
 }
 
 .description {
-  color: #9ca3af;
-  font-size: 1rem;
+  color: #8592b1;
+  font-size: 1.125rem;
+  font-weight: 600;
   line-height: 1.75rem;
   max-width: 48rem;
   margin: 1.5rem auto 0;
 }
 
 .faqContainer {
-  max-width: 48rem;
+  max-width: 70rem;
   width: 100%;
 }
 
@@ -87,15 +87,12 @@
   transition: transform 0.3s ease;
 }
 
-.question:hover {
-  transform: scale(1.05);
-}
-
 .answer {
   overflow: hidden;
   color: #9ca3af;
   margin-top: 0.75rem;
-  padding: 0 1rem 1rem 1rem;
+  padding: 0 1rem 1rem 3rem;
   line-height: 1.75rem;
   font-size: 1rem;
+  white-space: pre-line;
 }

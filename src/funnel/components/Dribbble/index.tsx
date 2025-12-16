@@ -371,7 +371,7 @@ export const Dribble: React.FC<DribbleProps & { data?: { section?: WorkSection; 
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-[#343e56] font-medium leading-[1.05em] tracking-[-0.05em] text-[40px] md:text-[60px] lg:text-[80px] xl:text-[100px] mb-2"
+          className="text-[#2d3753] font-medium leading-[1.05em] tracking-[-0.05em] text-[40px] md:text-[60px] lg:text-[80px] xl:text-[100px] mb-2"
         >
           {heading.split(" ").slice(0, -1).join(" ")}{" "}
           <span className={`${styles.serif} italic font-normal tracking-normal`}>
@@ -384,7 +384,7 @@ export const Dribble: React.FC<DribbleProps & { data?: { section?: WorkSection; 
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
           viewport={{ once: true }}
-          className="text-[#6f80a8] text-lg leading-7 max-w-3xl mx-auto mb-6"
+          className="text-[#8592b1] text-[1.125rem] font-semibold leading-7 max-w-3xl mx-auto mb-6"
         >
           {description}
         </motion.p>

@@ -39,7 +39,7 @@
 
 .heading {
   text-align: center;
-  color: #343e56;
+  color: #2d3753;
   font-weight: 500;
   line-height: 1.05em;
   letter-spacing: -0.05em;
@@ -83,8 +83,9 @@
 
 .description {
   text-align: center;
-  color: #6f80a8;
+  color: #8592b1;
   font-size: 1.125rem;
+  font-weight: 600;
   line-height: 1.75rem;
   max-width: 48rem;
   margin: 2rem auto 0;

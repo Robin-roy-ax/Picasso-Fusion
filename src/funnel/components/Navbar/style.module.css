@@ -53,7 +53,6 @@
   min-height: 3rem;
   /* Reduced from 4.1rem to match default */
   width: 100%;
-  transition: min-height 0.3s ease;
 }
 
 /* Both hero and default navbar should have same height */

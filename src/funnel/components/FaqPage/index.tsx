@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { faqs as defaultFaqs } from "./data";
 import styles from "./style.module.css";
-import { Plus, X } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { PortableText } from "next-sanity";
 import { FAQ_LIST_QUERYResult } from "@/sanity.types";
 
@@ -28,7 +28,7 @@ interface FAQSectionProps {
 }
 
 export default function FAQSection({ data }: FAQSectionProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const { section, items: fetchedItems } = data || {};
   
@@ -45,14 +45,14 @@ export default function FAQSection({ data }: FAQSectionProps) {
   return (
     <motion.section
       className={styles.section}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 1, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className={styles.header}>
         <motion.h2
           className={styles.title}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 1, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
@@ -62,7 +62,7 @@ export default function FAQSection({ data }: FAQSectionProps) {
         </motion.h2>
         <motion.p
           className={styles.description}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 1, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
@@ -75,14 +75,24 @@ export default function FAQSection({ data }: FAQSectionProps) {
         {faqs.map((faq, i) => {
           const isOpen = openIndex === i;
           return (
-            <div key={i} className={styles.faqItem}>
+            <motion.div 
+              key={i} 
+              className={styles.faqItem}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+            >
               <motion.button
                 className={styles.question}
                 onClick={() => setOpenIndex(isOpen ? null : i)}
                 whileTap={{ scale: 0.98 }}
               >
                 <span>{faq.question}</span>
-                {isOpen ? <X className="w-6 h-6" /> : <Plus className="w-6 h-6" />}
+                <motion.div
+                  animate={{ rotate: isOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ChevronDown className="w-6 h-6" />
+                </motion.div>
               </motion.button>
 
               <AnimatePresence>
@@ -102,7 +112,7 @@ export default function FAQSection({ data }: FAQSectionProps) {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
           );
         })}
       </div>

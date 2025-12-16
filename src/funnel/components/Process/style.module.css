@@ -63,7 +63,7 @@
   font-weight: 500;
   line-height: 1.05em;
   letter-spacing: -0.05em;
-  color: #343e56;
+  color: #2d3753;
 }
 
 .title span {
@@ -97,8 +97,9 @@
 }
 
 .description {
-  color: #939393c4;
+  color: #8592b1;
   font-size: 1.125rem;
+  font-weight: 600;
   line-height: 1.75rem;
   max-width: 30rem;
   margin-right: 5rem;

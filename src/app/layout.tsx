@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 5,
   },
-  themeColor: "#000000",
+  themeColor: "#ffffff",
 };
 
 const jsonLd = {
