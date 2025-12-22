@@ -43,10 +43,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1536px;
-  /* 6xl */
+  max-width: 900px;
+  /* Reduced from 1536px to bring lines closer */
   margin: 0 auto;
   z-index: 0;
+  /* Smoother fade starting much higher up */
+  mask-image: linear-gradient(to bottom, black 0%, black 20%, transparent 90%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 20%, transparent 90%);
+}
+
+/* High Blur Effect at the bottom */
+.heroDividerLines::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  /* High blur height as requested */
+  background: transparent;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+  z-index: 1;
+  mask-image: linear-gradient(to top, black 0%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, black 0%, transparent 100%);
 }
 
 .dividerLine {
@@ -271,6 +292,7 @@
   margin-top: 0;
   color: #8592b1;
   font-size: 0.75rem;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
@@ -288,7 +310,6 @@
 
 .scrollPop {
   z-index: 1200;
-  pointer-events: none;
   text-shadow:
     0 1px 0 rgba(0, 0, 0, 0.30),
     0 2px 3px rgba(0, 0, 0, 0.35),
@@ -314,23 +335,33 @@
 }
 
 @keyframes scrollBob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(6px);
+  }
 }
 
 @keyframes scrollGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     color: #a5b1c7;
     text-shadow:
-      0 1px 0 rgba(0,0,0,0.25),
-      0 2px 3px rgba(0,0,0,0.35),
-      0 6px 12px rgba(0,0,0,0.45);
+      0 1px 0 rgba(0, 0, 0, 0.25),
+      0 2px 3px rgba(0, 0, 0, 0.35),
+      0 6px 12px rgba(0, 0, 0, 0.45);
   }
+
   50% {
     color: #c7d2e9;
     text-shadow:
-      0 1px 0 rgba(0,0,0,0.35),
-      0 4px 6px rgba(0,0,0,0.45),
-      0 12px 24px rgba(0,0,0,0.6);
+      0 1px 0 rgba(0, 0, 0, 0.35),
+      0 4px 6px rgba(0, 0, 0, 0.45),
+      0 12px 24px rgba(0, 0, 0, 0.6);
   }
 }

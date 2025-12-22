@@ -15,7 +15,7 @@ export default function About({ data }: AboutProps) {
   const { mainText = ABOUT_TEXT.main, buttonText = ABOUT_BUTTON_TEXT } = (data || {});
 
   return (
-    <section className={styles.aboutSection}>
+    <section id="about" className={styles.aboutSection}>
       <motion.div
         className={styles.aboutTextBlock}
         initial={ABOUT_ANIMATIONS.textBlock.initial}

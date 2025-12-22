@@ -1,0 +1,193 @@
+/* =============================
+   TRUSTED BY – MINIMAL SAAS TICKER
+   Clean • Corporate • Motion-ready
+   Matches Blue Pricing Gradient
+   ============================= */
+
+/* ===== Heading ===== */
+.trustedByHeading {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 250;
+    letter-spacing: 0.50em;
+    text-transform: uppercase;
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+
+    color: #ffffff;
+}
+
+/* ===== Container ===== */
+.tickerContainer {
+    position: relative;
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0.75rem 0;
+    overflow: hidden;
+
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+/* ===== Wrapper ===== */
+.tickerWrapper {
+    position: relative;
+    overflow: hidden;
+
+    /* Transparency-based fade: merges with any background perfectly */
+    mask-image: linear-gradient(to right,
+            transparent 0%,
+            black 150px,
+            black calc(100% - 150px),
+            transparent 100%);
+    -webkit-mask-image: linear-gradient(to right,
+            transparent 0%,
+            black 150px,
+            black calc(100% - 150px),
+            transparent 100%);
+}
+
+/* ===== Track ===== */
+.tickerTrack {
+    display: flex;
+    align-items: center;
+    /* gap removed to ensure seamless loop using margin-right */
+    width: fit-content;
+
+    /* Infinite CSS Animation */
+    animation: scroll 60s linear infinite;
+    will-change: transform;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* ===== Item ===== */
+.tickerItem {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 52px;
+    height: 30px;
+
+    padding-left: 0rem;
+    padding-right: 2rem;
+    /* Internal spacing */
+
+    /* Replaces gap: ensures width calculation allows perfect loop */
+    margin-right: 2rem;
+
+    position: relative;
+}
+
+/* Vertical divider after each logo */
+.tickerItem::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(135, 135, 135, 0.401) 10%,
+            rgba(135, 135, 135, 0.401) 90%,
+            transparent 100%);
+}
+
+/* Keep divider on last child for seamless loop consistency */
+.tickerItem:last-child::after {
+    display: block;
+}
+
+/* ===== Logo ===== */
+.logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+
+    filter: brightness(0) invert(1);
+    opacity: 1;
+
+    transition: opacity 0.25s ease;
+}
+
+.starLogo {
+    width: 80px !important;
+    height: 60px !important;
+}
+
+/* ===== Edge Fade ===== */
+.fadeLeft,
+.fadeRight {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.fadeLeft {
+    left: 0;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    mask-image: linear-gradient(to right, black 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 0%, transparent 100%);
+}
+
+.fadeRight {
+    right: 0;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    mask-image: linear-gradient(to left, black 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, black 0%, transparent 100%);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .tickerItem {
+        min-width: 46px;
+        height: 26px;
+        padding-right: 0;
+        /* Remove internal padding on mobile if needed, matching original logic */
+        margin-right: 1.4rem;
+        /* Smaller gap */
+    }
+
+    .tickerItem::after {
+        right: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .trustedByHeading {
+        font-size: 0.7rem;
+    }
+
+    .tickerItem {
+        min-width: 40px;
+        height: 30px;
+        margin-right: 1.2rem;
+        /* Smallest gap */
+    }
+
+    .fadeLeft,
+    .fadeRight {
+        width: 48px;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+}

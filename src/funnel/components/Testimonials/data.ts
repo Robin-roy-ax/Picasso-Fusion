@@ -8,52 +8,49 @@ export interface Testimonial {
 export const TESTIMONIALS_DATA: Testimonial[] = [
   {
     quote:
-      "The new UI is a game changer, streamlining our processes and improving data insights. Since implementation, efficiency and cost-effectiveness have increased significantly.",
-    name: "Rafael",
-    title: "Director of IT Industry",
-    image:
-      "https://framerusercontent.com/images/iBem3bM7DskP1qLkV8JoHMLH68.jpg?scale-down-to=512",
+      "The Picasso Fusion team delivered a refined, scalable design experience that supports FacilGo’s AI-driven maintenance and renovations platform. Their work enhanced usability, efficiency, and overall product clarity.",
+    name: "FacilGo",
+    title: "Team FacilGo",
+    image:"/facilGo.svg",
   },
   {
     quote:
-      "The digital ads designed for Saree Boutique are impactful, showcasing the sarees’ elegance while telling a story of tradition and craftsmanship. Thanks to engaging content and campaigns",
-    name: "Michael Johnson",
-    title: "Founder of Boutique",
+      "Picasso Fusion delivered polished social and email creatives for Eventzilla, clearly communicating our feature-rich platform and promise of seamless, professional events.",
+    name: "Eventzilla",
+    title: "Marketing Team | Eventzilla",
     image:
-      "https://framerusercontent.com/images/9nYExwEqKiZOxikoZuzMhPzlIX8.jpg?scale-down-to=512",
+      "/Eve.svg",
   },
   {
     quote:
-      "The mobile design for Protein Pantry is exceptional. Its intuitive, sleek interface captures our brand and delivers a seamless user experience. We’re thrilled with how it elevated our brand.",
-    name: "David Brown",
-    title: "Co-Founder of Food Industry",
-    image:
-      "https://framerusercontent.com/images/xcVsFcFg7M5SkoOkJX5lUfdBUN4.jpg",
+      "Picasso Fusion delivered high-quality marketing assets for Callidus, including decks and social creatives, turning complex compliance-focused content into clear, credible, and brand-aligned visuals.",
+    name: "Callidus",
+    title: "Team Callidus",
+    image:"/Callidus.jpg",
   },
   {
     quote:
-      "The Picasso Fusion team's skills and creativity helped us build a visually stunning Instagram presence that has increased brand awareness and sales for our beauty brand.",
-    name: "Leandro",
-    title: "Co-Founder of Medical Industry",
-    image:
-      "https://framerusercontent.com/images/mKwxopbnEeNzwo0LzcvyHC5RdMM.jpg",
+      "Picasso Fusion beautifully captured the essence of Saaral — simplicity, craftsmanship, and quiet elegance. Their design approach allowed our handloom sarees to speak for themselves, highlighting texture and detail without overwhelming the aesthetic. The visuals feel refined, timeless, and perfectly aligned with our brand philosophy.",
+    name: "Saaral Handloom Studio",
+    title: "Founder | Textile & Craft Brand",
+    image:"/Saaral.jpg",
   },
   {
     quote:
-      "Picasso Fusion’s design services surpassed our expectations. Their team delivered compelling visuals and messaging that aligned perfectly with our brand, and the credit based system made the entire process effortless and efficient.",
-    name: "Matthew Miller",
-    title: "Co-founder of Construction Company",
+      "Picasso Fusion created eye-catching posters for Cell Point across the website and social media. The creatives were visually strong and on-brand, clearly showcasing products while enhancing the brand’s overall digital presence, consistency, and engagement across multiple customer touchpoints.",
+    name: "Cellpoint",
+    title: "Product Manager | Cellpoint",
     image:
-      "https://framerusercontent.com/images/a5SO6bWYO9JGc90jHykGK0g78.jpg",
+      "/Cellpoint.jpg",
   },
-  {
-    quote:
-      "We were truly impressed by Picasso Fusion’s creativity and vision. Their environmental graphics transformed our office into a vibrant and inspiring space that elevated the entire atmosphere.",
-    name: "Christopher Harris",
-    title: "HR Manager at Cafe",
-    image:
-      "https://framerusercontent.com/images/lyyanOkQwdFqEmTN9vhLsdsi0.jpg",
-  },
+  // {
+  //   quote:
+  //     "We were truly impressed by Picasso Fusion’s creativity and vision. Their environmental graphics transformed our office into a vibrant and inspiring space that elevated the entire atmosphere.",
+  //   name: "Christopher Harris",
+  //   title: "HR Manager at Cafe",
+  //   image:
+  //     "https://framerusercontent.com/images/lyyanOkQwdFqEmTN9vhLsdsi0.jpg",
+  // },
 ];
 
 export const TESTIMONIALS_TEXT = {

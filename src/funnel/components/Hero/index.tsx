@@ -20,6 +20,7 @@ import {
 } from "./data";
 import styles from "./style.module.css";
 import { HERO_QUERYResult } from "@/sanity.types";
+import Ticker from "./Ticker";
 
 const instrumentSerif = Instrument_Serif({ subsets: ["latin"], weight: ["400"] });
 
@@ -68,6 +69,13 @@ export default function Hero({ data }: HeroProps) {
     },
     scrollText = SCROLL_DOWN_TEXT
   } = (data || {});
+
+  const handleScrollDown = () => {
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <motion.section
@@ -195,45 +203,12 @@ export default function Hero({ data }: HeroProps) {
       </motion.div>
 
       <motion.div
-        initial={shouldAnimate ? { opacity: 0, x: -20 } : { opacity: 1 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={shouldAnimate ? { opacity: 0, y: 20 } : { opacity: 1 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: shouldAnimate ? HERO_ANIMATIONS.avatars.delay : 0 }}
-        className="flex flex-col items-center mt-12"
+        className="mt-12"
       >
-        <div className="flex -space-x-4 mb-2">
-          {avatars?.map((item: any, i: number) => {
-            // Handle both legacy string images and new Sanity image objects
-            const isString = typeof item === 'string';
-            const imageUrl = isString ? item : (item?.asset ? urlFor(item).url() : "");
-            const altText = isString ? `Client ${i + 1}` : (item?.alt || `Client ${i + 1}`);
-            
-             return (
-            <div
-              key={i}
-              className="relative w-10 h-10 rounded-full border-2 border-white/60 overflow-hidden shadow-md
-                 transition-all duration-300 ease-out hover:scale-110 hover:-translate-y-1 hover:shadow-lg"
-            >
-              <Image
-                src={imageUrl}
-                alt={altText}
-                width={40}
-                height={40}
-                className="w-full h-full object-cover"
-                priority={i < 3}
-              />
-            </div>
-          )})}
-        </div>
-
-        <motion.p
-          initial={shouldAnimate ? { opacity: 0, x: 20 } : { opacity: 1 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: shouldAnimate ? HERO_ANIMATIONS.avatarText.delay : 0 }}
-          className="text-white font-medium"
-        >
-          {clientCount?.number}{" "}
-          <span className="text-gray-400">{clientCount?.description}</span>
-        </motion.p>
+        <Ticker />
       </motion.div>
 
       <motion.div
@@ -241,6 +216,7 @@ export default function Hero({ data }: HeroProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: shouldAnimate ? HERO_ANIMATIONS.scrollText.delay : 0 }}
         className={`${styles.heroScrollText} ${styles.scrollPop} ${styles.scrollInvite}`}
+        onClick={handleScrollDown}
       >
         <span className={styles.scrollInviteText}>{scrollText}</span>
       </motion.div>

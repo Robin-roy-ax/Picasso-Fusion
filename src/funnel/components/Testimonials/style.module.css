@@ -133,16 +133,46 @@
 
 @media (min-width: 768px) {
   .testimonialsGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(12,1fr);
     padding: 0;
   }
 }
 
-@media (min-width: 1024px) {
-  .testimonialsGrid {
-    grid-template-columns: repeat(3, 1fr);
+.spanWide {
+  grid-column: span 12;
+}
+
+.spanNarrow {
+  grid-column: span 12;
+}
+
+.spanThird {
+  grid-column: span 12;
+}
+
+.spanHalf {
+  grid-column: span 12;
+}
+
+@media (min-width: 768px) {
+  .spanWide {
+    grid-column: span 7;
+  }
+
+  .spanNarrow {
+    grid-column: span 5;
+  }
+
+  .spanThird {
+    grid-column: span 4;
+  }
+
+  .spanHalf {
+    grid-column: span 6;
   }
 }
+
+
 
 @media (max-width: 767px) {
   .testimonialsGrid {
@@ -183,6 +213,8 @@
 @media (min-width: 768px) {
   .testimonialCard {
     padding: 2rem;
+    max-width: none;
+    margin: 0;
   }
 }
 
@@ -261,6 +293,24 @@
   overflow: hidden;
   flex-shrink: 0;
   border: 1px solid rgb(209, 213, 219);
+}
+
+.facilGoLogo {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  filter: invert(1);
+  background-color: rgb(255, 200, 0);
+  padding: 8px;
+  box-sizing: border-box;
+}
+.eventzilaLogo {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  filter: invert(1);
+  background-color: rgb(255, 145, 0);
+  
 }
 
 @media (min-width: 768px) {

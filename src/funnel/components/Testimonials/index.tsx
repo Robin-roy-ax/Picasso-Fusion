@@ -71,16 +71,23 @@ export default function Testimonials({ data }: TestimonialsProps) {
 
         <div className={styles.testimonialsGrid}>
           {testimonials.map((testimonial, index) => {
-            const column = index % 3;
             let delay = 0;
+            let spanClass = styles.spanWide;
 
-            if (column === 1) delay = 0.3;
-            else delay = 0.1;
+            if (index < 3) {
+              // Top row: Symmetric 3 cards (Thirds)
+              spanClass = styles.spanThird;
+            } else {
+              // Bottom row: Symmetric 2 cards (Halves)
+              spanClass = styles.spanHalf;
+            }
+            // Sequential stagger for all cards
+            delay = index * 0.2;
 
             return (
               <motion.div
                 key={index}
-                className={styles.testimonialCard}
+                className={`${styles.testimonialCard} ${spanClass}`}
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -99,7 +106,13 @@ export default function Testimonials({ data }: TestimonialsProps) {
                         src={testimonial.image as any}
                         alt={testimonial.name}
                         fill
-                        className={styles.testimonialImage}
+                        className={`${styles.testimonialImage} ${
+                          testimonial.image.includes('facilGo') 
+                            ? styles.facilGoLogo 
+                            : testimonial.image.includes('Eve') 
+                              ? styles.eventzilaLogo 
+                              : ''
+                        }`}
                         sizes="56px"
                       />
                     )}
